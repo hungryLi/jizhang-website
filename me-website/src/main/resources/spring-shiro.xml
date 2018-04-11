@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	<description>Shiro 配置</description>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/index" />
+		<property name="unauthorizedUrl" value="/403" />
+		<property name="filters">  
+		       <util:map>  
+		           <!-- <entry key="authc" value-ref="myAuthenFilter" />   -->
+		           <!-- <entry key="perms" value-ref="URLPermissionsFilter" />   -->
+		       </util:map>  
+    	</property>  
+		<property name="filterChainDefinitions">
+			<value>
+			     /resource/** = anon
+			     /general/** = anon
+			     /validateCodeServlet.htm = anon
+			     /403 = anon
+				 /index = anon
+				 /login = anon
+				 /doLogin = anon
+				 /logout = anon
+				 /get_logo_banner_info = anon
+				 /get_index_game = anon
+				 /global/lang = anon
+				 /page/** = anon
+				 /res/** = anon
+				 /*.jsp = authc
+				 /balance/get_balance = anon
+				 /user_center/** = authc
+				 /user/doRegister = anon
+				 /user/deputy_list = authc
+				 /user/transfer_account = authc
+				 /user/transfer_account_list = authc
+				 /user/bet/list = authc
+				 /account/** = authc
+				 /agent_center/** = anon
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!--设置自定义realm -->
+		<property name="realm" ref="monitorRealm" />
+		<!-- sessionManager -->
+		<property name="sessionManager" ref="shiroSessionManager" />
+		<!-- cacheManager -->
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!--自定义Realm 继承自AuthorizingRealm -->
+	<bean id="monitorRealm" class="cn.kang.biu.shiro.service.MonitorRealm"></bean>
+	<!-- securityManager -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+
+	<!-- Enable Shiro Annotations for Spring-configured beans. Only run after -->
+	<!-- the lifecycleBeanProcessor has run: -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	
+	<!-- shiro redisManager -->
+	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+	 <property name="host" value="${redis-ip}" />
+		<property name="port" value="${redis-port}" />
+		<property name="expire" value="${redis-shiro-time}" /> 
+	</bean>
+
+	<!-- redisSessionDAO -->
+	<bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+		<property name="redisManager" ref="redisManager" />
+	</bean>
+	
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<!--cookie的name -->
+	    <constructor-arg value="site.ogclouds.com"/>
+        <!--设置Cookie名字，默认为JSESSIONID-->
+	    <property name="httpOnly" value="true"/>
+	    <!--cookie的有效时间 -->
+	    <property name="maxAge" value="-1"/>
+	    <!-- 配置存储Session Cookie的domain为 一级域名
+	    <property name="domain" value=".itboy.net"/>
+	     -->
+	</bean>
+	
+	<bean id="sessionManager" class="org.apache.shiro.session.mgt.SimpleSession">
+		<property name="timeout" value="12000"></property>
+	</bean>
+	
+
+	<!-- cacheManager -->
+	<bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
+		<property name="redisManager" ref="redisManager" />
+	</bean>
+
+	 <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="redisSessionDAO" />
+		<!-- <property name="sessionValidationScheduler" ref="shiroSessionValidationScheduler"/> -->
+		<property name="sessionValidationInterval" value="600000" />  <!-- 相隔多久检查一次session的有效性 -->
+		<property name="globalSessionTimeout" value="1800000" />  <!-- session 有效时间为半小时 （毫秒单位） -->
+		<property name="sessionIdCookie" ref="sessionIdCookie"/>
+	 </bean>
+
+</beans>
