@@ -1,5 +1,6 @@
 package cn.kang.biu.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserAuthService {
@@ -11,6 +12,8 @@ public interface UserAuthService {
 	public String valiCode(String vali_code, String userAgent, String area_code, String phone) throws Exception ;
 
 	public String sendMessage(String area_code, String phone, String msg_token) throws Exception ;
+
+	public List<Map<String, Object>> getMenuLists() throws Exception ;
 	
 }
 

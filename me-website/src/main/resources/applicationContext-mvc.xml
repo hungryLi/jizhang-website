@@ -35,7 +35,7 @@
 	</mvc:annotation-driven>
 
 	<!-- 对模型视图添加前后缀 -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/page/" p:suffix=".jsp" />
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/pages/" p:suffix=".jsp" />
 
 
 	<!-- 将Controller抛出的异常转到特定View, 保持SiteMesh的装饰效果 -->
@@ -62,7 +62,7 @@
 	
 	<mvc:resources mapping="/general/**" location="/general/" />
 	<mvc:resources mapping="/include/**" location="/include/" />
-	<mvc:resources mapping="/page/**"  location="/WEB-INF/page/" />
+	<mvc:resources mapping="/pages/**"  location="/WEB-INF/pages/" />
 	<mvc:resources mapping="/resource/**"  location="/WEB-INF/classes/res/" />
 	
  <!-- 	<mvc:interceptors>

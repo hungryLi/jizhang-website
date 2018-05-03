@@ -15,31 +15,70 @@ public class UserInfoVO implements Serializable{
 
     private String loginId;
 
-    private String pwd;
+    private String password;
 
-    private String opUser;
-
-    private Double ptValue;
-
-    private Integer userType;
-
-    private String phoneNumber;
+    private String nickName;
 
     private String email;
-
-    private Integer supplierId;
-
-    private Integer operId;
-
-    private Integer agentId;
+    
+    private String phone;
+    
+    private Integer regType;
+    
+    private String identityCode;
     
     private String token;
     
-    private Integer currencyId;
     
-    private Integer flag;//标志。 默认0 ; 1:线上现金代理 ; 2:线下现金代理
-    
-    public String getToken() {
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Integer getRegType() {
+		return regType;
+	}
+
+	public void setRegType(Integer regType) {
+		this.regType = regType;
+	}
+
+	public String getIdentityCode() {
+		return identityCode;
+	}
+
+	public void setIdentityCode(String identityCode) {
+		this.identityCode = identityCode;
+	}
+
+	public String getToken() {
 		return token;
 	}
 
@@ -70,93 +109,5 @@ public class UserInfoVO implements Serializable{
     public void setLoginId(String loginId) {
         this.loginId = loginId == null ? null : loginId.trim();
     }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd == null ? null : pwd.trim();
-    }
-
-    public String getOpUser() {
-        return opUser;
-    }
-
-    public void setOpUser(String opUser) {
-        this.opUser = opUser == null ? null : opUser.trim();
-    }
-
-    public Double getPtValue() {
-        return ptValue;
-    }
-
-    public void setPtValue(Double ptValue) {
-        this.ptValue = ptValue;
-    }
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public Integer getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Integer supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public Integer getOperId() {
-        return operId;
-    }
-
-    public void setOperId(Integer operId) {
-        this.operId = operId;
-    }
-
-    public Integer getAgentId() {
-        return agentId;
-    }
-
-    public void setAgentId(Integer agentId) {
-        this.agentId = agentId;
-    }
-
-	public Integer getCurrencyId() {
-		return currencyId;
-	}
-
-	public void setCurrencyId(Integer currencyId) {
-		this.currencyId = currencyId;
-	}
-
-	public Integer getFlag() {
-		return flag;
-	}
-
-	public void setFlag(Integer flag) {
-		this.flag = flag;
-	}
     
 }

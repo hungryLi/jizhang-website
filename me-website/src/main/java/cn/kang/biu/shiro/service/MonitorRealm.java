@@ -54,8 +54,6 @@ public class MonitorRealm extends AuthorizingRealm {
 		UserAuthService userAuthService = Springfactory.getBean("userAuthServie");
 		String password = String.valueOf(token.getPassword());
 		String userName = token.getUsername();
-		String operatorId = token.getOperatorId();
-		String agentId = token.getAgentId();
 		
 		JSONObject jsonObject = null;
 		UserInfoVO user = null;
@@ -63,12 +61,7 @@ public class MonitorRealm extends AuthorizingRealm {
 		Map<String, Object> loginMap = new HashMap<String, Object>();
 		loginMap.put("login_id", userName);
 		loginMap.put("passwd", password);
-		loginMap.put("operator_id", operatorId);
-		loginMap.put("agent_id", agentId);
-		loginMap.put("login_type", 1);
-		loginMap.put("user_type", 1);
 		loginMap.put("user_agent", token.getUserAgent());
-		loginMap.put("is_down_line", token.getIsDownLine());
 		try {
 			String result = userAuthService.userAuth(loginMap);
 			jsonObject = new JSONObject(result);
@@ -82,22 +75,10 @@ public class MonitorRealm extends AuthorizingRealm {
 			user.setId(json.optInt("user_id"));
 			user.setUserName(json.optString("user_name"));
 			user.setLoginId(json.optString("user_name"));
-			user.setPhoneNumber(json.optString("user_phone"));
+			user.setPhone(json.optString("phone"));
 			user.setEmail(json.optString("email"));
-			user.setSupplierId(json.optInt("supplier_id"));
-			user.setUserType(json.optInt("user_type"));
 			user.setToken(json.optString("token"));
-			user.setFlag(json.optInt("flag"));
 			
-			if(json.optInt("operator_id") != 0){
-				user.setOperId(json.optInt("operator_id"));
-			}
-			if(json.optInt("agent_id") != 0){
-				user.setAgentId(json.optInt("agent_id"));
-			}
-			if(json.optInt("currency_id") != 0){
-				user.setCurrencyId(json.optInt("currency_id"));
-			}
 			Subject currentUser = SecurityUtils.getSubject();
 			Session session = currentUser.getSession();
 			session.setAttribute("userinfo", user);
