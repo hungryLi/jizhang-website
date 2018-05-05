@@ -152,7 +152,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               		<!--用户头像 以及名称-->
               	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">${userinfo.user_name }</h5>
+              	  <h5 class="centered">李康</h5>
                   
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -182,7 +182,7 @@
                       </a>
                        <ul class="sub">
                           <li><a  href="buttons.html">权限管理</a></li>
-                          <li><a  href="panels.html">角色管理</a></li>
+                          <li><a  href="/admin/role_mgr">角色管理</a></li>
                           <li><a  href="panels.html">用户管理</a></li>
                       </ul>
                   </li>

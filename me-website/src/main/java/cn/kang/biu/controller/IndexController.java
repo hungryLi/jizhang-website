@@ -1,6 +1,5 @@
 package cn.kang.biu.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +25,6 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.kang.biu.service.UserAuthService;
 import cn.kang.biu.shiro.credentials.AuthenticationUserInfo;
-import cn.kang.biu.shiro.service.UserToken;
-import cn.kang.biu.vo.UserInfoVO;
 import platform.common.base.console.controller.BaseController;
 
 @Controller
