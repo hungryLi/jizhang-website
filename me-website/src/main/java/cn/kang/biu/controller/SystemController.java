@@ -35,6 +35,12 @@ public class SystemController extends BaseController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/permision_mgr", method = RequestMethod.GET)
+	public ModelAndView toPermisionPage(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView view = new ModelAndView("/system/permision");
+		return view;
+	}
+	
 	@RequestMapping(value = "/role_list", method = RequestMethod.POST)
 	@ResponseBody
 	public String toRolePage(HttpServletRequest request, HttpServletResponse response,

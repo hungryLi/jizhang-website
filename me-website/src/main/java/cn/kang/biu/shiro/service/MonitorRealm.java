@@ -78,7 +78,6 @@ public class MonitorRealm extends AuthorizingRealm {
 			user.setPhone(json.optString("phone"));
 			user.setEmail(json.optString("email"));
 			user.setToken(json.optString("token"));
-			
 			Subject currentUser = SecurityUtils.getSubject();
 			Session session = currentUser.getSession();
 			session.setAttribute("userinfo", user);

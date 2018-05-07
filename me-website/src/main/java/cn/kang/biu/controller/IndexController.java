@@ -37,7 +37,6 @@ public class IndexController extends BaseController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView accessIndex(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Subject subject = SecurityUtils.getSubject();
 		if(!SecurityUtils.getSubject().isAuthenticated()) {
 			ModelAndView view = new ModelAndView("login");
 			return view;

@@ -9,7 +9,7 @@
 		<meta name="author" content="Dashboard">
 		<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 	
-		<title>role</title>
+		<title>permision</title>
 	
 		<!--external css-->
 	    <link href="/assets/css/bootstrap.css" rel="stylesheet">
@@ -32,15 +32,15 @@
 			<!--sidebar end-->
 			<jsp:include page="../header.jsp" flush="true" />
 			
-			<div class="copyrights">Collect from
+			<!-- <div class="copyrights">Collect from
 				<a href="http://www.cssmoban.com/">网页模板</a>
-			</div>
+			</div> -->
 
 			<section id="main-content">
 				<section class="wrapper">
 					<h3>
 						<i class="fa fa-angle-right"></i>
-						角色管理
+						权限管理
 					</h3>
 					
 					<div class="row mt" style="margin-top: 20px;">
@@ -48,35 +48,41 @@
 							<div class="form-panel">
 								<h5>
 									<i class="fa fa-angle-right"></i>
-									角色列表
+									权限列表
 								</h5>
 								<hr />
 								<table class="table table-hover">
 	                              <thead>
 		                              <tr>
 		                                  <th>No.</th>
-		                                  <th>角色名称</th>
-		                                  <th>角色代码</th>
-		                                  <th>说明</th>
+		                                  <th>权限名称</th>
+		                                  <th>权限代码</th>
+		                                  <th>菜单名称</th>
+		                                  <th>菜单级别</th>
+		                                  <th>跳转地址</th>
+		                                  <th>图标</th>
 		                                  <th>操作</th>
 		                              </tr>
 	                              </thead>
 	                              <tbody id="role_body">
-		                             <!--  <tr>
+		                              <tr>
 		                                  <td>1</td>
 		                                  <td>Mark</td>
 		                                  <td>Otto</td>
+		                                  <td>@mdo</td>
+		                                  <td>@mdo</td>
+		                                  <td>@mdo</td>
 		                                  <td>@mdo</td>
 		                                  <td>
 		                                  	<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel"><i class="fa fa-pencil"></i></button>&nbsp;
 		                                  	<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
 		                                  </td>
-		                              </tr> -->
+		                              </tr>
 	                              </tbody>
 	                          </table>
 							</div>
 							
-							<div class="form-panel" style="margin-top: 70px;">
+							<!-- <div class="form-panel" style="margin-top: 70px;">
 								<h5>
 									<i class="fa fa-angle-right"></i>
 									添加角色
@@ -108,7 +114,7 @@
 									    </div>
 								  	</div>
 		                      	</form>	
-							</div>
+							</div> -->
 							
 							
 							
@@ -192,8 +198,7 @@
 		<script src="/assets/js/sparkline-chart.js"></script>
 		<script src="/assets/js/zabuto_calendar.js"></script>
    		<script src="${pageContext.request.contextPath}/pages/comm/js/comm.js"></script>
-		<script src="${pageContext.request.contextPath}/pages/system/role.js"></script>
-
+		<script src="${pageContext.request.contextPath}/pages/system/permision.js"></script>
 
 </body>
 </html>
