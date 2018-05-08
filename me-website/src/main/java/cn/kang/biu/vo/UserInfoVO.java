@@ -29,6 +29,9 @@ public class UserInfoVO implements Serializable{
     
     private String token;
     
+    private String roleId;
+    
+    private String roleCode;
     
     public String getPassword() {
 		return password;
@@ -109,5 +112,21 @@ public class UserInfoVO implements Serializable{
     public void setLoginId(String loginId) {
         this.loginId = loginId == null ? null : loginId.trim();
     }
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
     
 }

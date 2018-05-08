@@ -1,7 +1,10 @@
 package cn.kang.biu.shiro.service;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -39,8 +42,27 @@ public class MonitorRealm extends AuthorizingRealm {
 	// 授权
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		// 查询用户授权信息
-		return new SimpleAuthorizationInfo();
+		Set<String> roles = new HashSet<String>();
+		Set<String> permisions = new HashSet<String>();
+		Integer userId = UserToken.getToken().getId();
+		UserAuthService userAuthService = Springfactory.getBean("userAuthServie");
+		List<Map<String, Object>> roleList = userAuthService.queryPrincipalRoles(userId);
+		List<Map<String, Object>> permisionList = userAuthService.queryPrincipalPermisions(userId);
+		if(roleList != null) {
+			for(Map<String, Object> role : roleList) {
+				roles.add(role.get("role_code").toString());
+			}
+			authorizationInfo.setRoles(roles);
+		}
+		if(permisionList != null) {
+			for(Map<String, Object> permison : permisionList) {
+				permisions.add(permison.get("p_code").toString());
+			}
+			authorizationInfo.setStringPermissions(permisions);
+		}
+		return authorizationInfo;
 	}
 
 	/**
@@ -61,7 +83,6 @@ public class MonitorRealm extends AuthorizingRealm {
 		Map<String, Object> loginMap = new HashMap<String, Object>();
 		loginMap.put("login_id", userName);
 		loginMap.put("passwd", password);
-		loginMap.put("user_agent", token.getUserAgent());
 		try {
 			String result = userAuthService.userAuth(loginMap);
 			jsonObject = new JSONObject(result);
@@ -78,6 +99,7 @@ public class MonitorRealm extends AuthorizingRealm {
 			user.setPhone(json.optString("phone"));
 			user.setEmail(json.optString("email"));
 			user.setToken(json.optString("token"));
+			user.setRoleId(json.optString("role_id")); //方便权限查询
 			Subject currentUser = SecurityUtils.getSubject();
 			Session session = currentUser.getSession();
 			session.setAttribute("userinfo", user);

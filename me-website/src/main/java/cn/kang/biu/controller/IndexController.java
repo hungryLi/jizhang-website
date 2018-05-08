@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.kang.biu.service.UserAuthService;
 import cn.kang.biu.shiro.credentials.AuthenticationUserInfo;
+import cn.kang.biu.vo.PermisionVo;
 import platform.common.base.console.controller.BaseController;
 
 @Controller
@@ -65,9 +66,9 @@ public class IndexController extends BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		if(!SecurityUtils.getSubject().isAuthenticated()) {
 			ModelAndView view = new ModelAndView("login");
-			return modelData(request,response);
+			return view;
 		}
-		return new ModelAndView("index");
+		return modelData(request,response,"index");
 	}
 
 
@@ -101,9 +102,10 @@ public class IndexController extends BaseController {
 			try {
 				currentUser.login(token);
 				if(currentUser.isAuthenticated()){
-					jsonObject.put("code", 10000);
-					jsonObject.put("msg", "success");
-					return jsonObject.toJSONString();
+					return "redirect:/index";
+//					jsonObject.put("code", 10000);
+//					jsonObject.put("msg", "success");
+//					return jsonObject.toJSONString();
 				}
 			} catch (UnknownAccountException e) {
 				jsonObject.put("code", 3);
@@ -175,11 +177,10 @@ public class IndexController extends BaseController {
 		}
 	}
 	
-	private ModelAndView modelData(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView view = new ModelAndView();
-		List<Map<String,Object>> nvs = userAuthService.getMenuLists();
+	private ModelAndView modelData(HttpServletRequest request, HttpServletResponse response,String pageUrl) throws Exception {
+		ModelAndView view = new ModelAndView(pageUrl);
+		List<PermisionVo> nvs = userAuthService.getMenuLists();
 		view.addObject("nav_list", nvs);
-		
 		return view;
 	}
 	

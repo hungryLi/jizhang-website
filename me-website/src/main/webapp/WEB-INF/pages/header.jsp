@@ -121,6 +121,21 @@
               	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
               	  <h5 class="centered">${userinfo.userName}</h5>
                   <li style="display: block;margin-top:20px;"></li>
+                  <c:forEach items="${nav_list}" var="nav">
+                  	<li class="sub-menu">
+                      <a href="${nav.menuHref }" >
+                          <i class="fa ${nav.iconAddress }"></i>
+                          <span>${nav.menuName }</span>
+                      </a>
+                      <c:if test="${! empty nav.children}">
+	                      <ul class="sub">
+	                      	  <c:forEach items="${nav.children }" var="children">
+		                          <li><a  href="/${children.menuHref}">${children.menuName}</a></li>
+	                      	  </c:forEach>
+	                      </ul>
+                      </c:if>
+                  	</li>
+                  </c:forEach>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-desktop"></i>
