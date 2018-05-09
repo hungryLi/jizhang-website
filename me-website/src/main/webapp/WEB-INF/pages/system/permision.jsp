@@ -46,7 +46,11 @@
 					<div class="row mt" style="margin-top: 20px;">
 						<div class="col-lg-12">
 							<div class="form-panel">
-								<h5>
+								<div class="input-group" style="width: 200px;">
+									<input type="text" class="form-control" id="p_name" placeholder="权限名称">
+									<div class="input-group-addon query_permision" style="cursor: pointer;">查询</div>
+								</div>
+								<h5 style="margin-top: 30px;">
 									<i class="fa fa-angle-right"></i>
 									权限列表
 								</h5>
@@ -64,9 +68,9 @@
 		                                  <th>操作</th>
 		                              </tr>
 	                              </thead>
-	                              <tbody id="role_body">
+	                              <tbody id="permision_body">
 		                              <tr>
-		                                  <td>1</td>
+		                                  <!-- <td>1</td>
 		                                  <td>Mark</td>
 		                                  <td>Otto</td>
 		                                  <td>@mdo</td>
@@ -76,10 +80,14 @@
 		                                  <td>
 		                                  	<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel"><i class="fa fa-pencil"></i></button>&nbsp;
 		                                  	<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-		                                  </td>
+		                                  </td> -->
 		                              </tr>
 	                              </tbody>
 	                          </table>
+	                          <div>
+	                          	<ul id="p_pagenator" class="pagination pagination-sm">
+	                          	</ul>
+	                          </div>
 							</div>
 							
 							<!-- <div class="form-panel" style="margin-top: 70px;">
@@ -193,6 +201,7 @@
 
 		<script type="text/javascript" src="/assets/js/gritter/js/jquery.gritter.js"></script>
 		<script type="text/javascript" src="/assets/js/gritter-conf.js"></script>
+		<script type="text/javascript" src="/assets/js/paginator/bootstrap-paginator.js"></script>
 
 		<!--script for this page-->
 		<script src="/assets/js/sparkline-chart.js"></script>

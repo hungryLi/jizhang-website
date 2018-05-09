@@ -43,7 +43,7 @@ public class SystemController extends BaseController {
 	
 	@RequestMapping(value = "/role_list", method = RequestMethod.POST)
 	@ResponseBody
-	public String toRolePage(HttpServletRequest request, HttpServletResponse response,
+	public String roleListPage(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "page_num", required = true) Integer page_num,
 			@RequestParam(value = "page_size",required = true) Integer page_size) throws Exception{
 		JSONObject retJson = new JSONObject();
@@ -52,6 +52,27 @@ public class SystemController extends BaseController {
 			map.put("page_num", page_num);
 			map.put("page_size", page_size);
 			return systemService.roleList(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "error ");
+			return retJson.toString();
+		}
+	}
+	
+	@RequestMapping(value = "/permision_list", method = RequestMethod.POST)
+	@ResponseBody
+	public String permisionListPage(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "page_num", required = true) Integer page_num,
+			@RequestParam(value = "page_size",required = true) Integer page_size,
+			@RequestParam(value = "p_name",required = false) String p_name) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("page_num", page_num);
+			map.put("page_size", page_size);
+			map.put("p_name", p_name);
+			return systemService.permisionList(map);
 		} catch (Exception e) {
 			logger.error(e);
 			retJson.put("code", 1001);

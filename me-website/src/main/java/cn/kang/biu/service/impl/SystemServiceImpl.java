@@ -32,6 +32,15 @@ public class SystemServiceImpl implements SystemService {
 		String result = HttpUtil.doPost(JZ_URL+"/auth/role_update", MiscUtil.createRequestParm(map));
 		return result;
 	}
+
+	@Override
+	public String permisionList(Map<String, Object> map) throws Exception {
+		if(StringUtil.isEmpty(JZ_URL)) {
+			throw new RuntimeException("jz_url exception");
+		}
+		String result = HttpUtil.doPost(JZ_URL+"/auth/permision_list", MiscUtil.createRequestParm(map));
+		return result;
+	}
 	
 	
 	

@@ -8,4 +8,6 @@ public interface SystemService {
 
 	String updateRole(Map<String, Object> map) throws Exception;
 
+	String permisionList(Map<String, Object> map) throws Exception;
+
 }
