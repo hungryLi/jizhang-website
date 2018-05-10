@@ -10,4 +10,10 @@ public interface SystemService {
 
 	String permisionList(Map<String, Object> map) throws Exception;
 
+	String getParentMenus() throws Exception;
+
+	String addPermission(Map<String, Object> map) throws Exception;
+
+	String deletePermison(Map<String, Object> map) throws Exception;
+
 }

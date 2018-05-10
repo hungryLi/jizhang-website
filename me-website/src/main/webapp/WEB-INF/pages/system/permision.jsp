@@ -50,10 +50,13 @@
 									<input type="text" class="form-control" id="p_name" placeholder="权限名称">
 									<div class="input-group-addon query_permision" style="cursor: pointer;">查询</div>
 								</div>
-								<h5 style="margin-top: 30px;">
-									<i class="fa fa-angle-right"></i>
-									权限列表
-								</h5>
+								
+								<div style="margin-top: 30px;position: relative;">
+									<h5 style="display: inline;width: 300px;"><i class="fa fa-angle-right"></i> 权限列表</h5>
+									<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#permissionEdit" style="position: absolute;right: 0px;bottom: -5px;">
+										<i class="glyphicon glyphicon-plus"></i>添加
+									</button>
+								</div>
 								<hr />
 								<table class="table table-hover">
 	                              <thead>
@@ -132,37 +135,77 @@
 					</div>
 				</section>
 				
-				<!-- 模态框（Modal） -->
-				<div class="modal fade" id="roleModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				    <div class="modal-dialog modal-dialog-centered" style="top: 200px;">
+				<!-- 模态框（Modal 权限添加） -->
+				<div class="modal fade" id="permissionEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered" style="top: 150px;">
 				        <div class="modal-content">
 				            <div class="modal-header">
 				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 				                    &times;
 				                </button>
 				                <h4 class="modal-title" id="myModalLabel">
-				                                 	角色编辑
+				                                 	权限添加
 				                </h4>
 				            </div>
 				            <div class="modal-body">
 				                	
 									<form class="form-horizontal style-form" method="get">
 			                          	<div class="form-group" style="padding-bottom: 0px;">
-			                              <label class="col-sm-2 col-sm-2 control-label">角色名称</label>
+			                              <label class="col-sm-2 col-sm-2 control-label">权限名称</label>
 			                              <div class="col-sm-10">
-			                                  <input type="text" class="form-control is-required" id="role_name">
+			                                  <input type="text" class="form-control is-required" id="p_name1">
 			                              </div>
 			                          	</div>
 			                          	<div class="form-group" style="padding-bottom: 0px;">
-			                              <label class="col-sm-2 col-sm-2 control-label">角色代码</label>
+			                              <label class="col-sm-2 col-sm-2 control-label">权限代码</label>
 			                              <div class="col-sm-10">
-			                                  <input type="text" class="form-control is-required" id="role_code">
+			                                  <input type="text" class="form-control is-required" id="p_code">
 			                              </div>
 			                          	</div>
 			                          	<div class="form-group" style="padding-bottom: 0px;">
-			                              <label class="col-sm-2 col-sm-2 control-label">角色说明</label>
+			                              <label class="col-sm-2 col-sm-2 control-label">菜单名称</label>
 			                              <div class="col-sm-10">
-			                                  <input type="text" class="form-control is-required" id="role_desc">
+			                                  <input type="text" class="form-control is-required" id="menu_name">
+			                              </div>
+			                          	</div>
+			                          	<div class="form-group" style="padding-bottom: 0px;">
+			                              <label class="col-sm-2 col-sm-2 control-label">url地址</label>
+			                              <div class="col-sm-10">
+			                                  <input type="text" class="form-control is-required" id="menu_href" value="javascript:void(0);">
+			                              </div>
+			                          	</div>
+			                          	<div class="form-group" style="padding-bottom: 0px;">
+			                              <label class="col-sm-2 col-sm-2 control-label">菜单级别</label>
+			                              <div class="col-sm-10">
+			                                  <select class="form-control" id="menu_type">
+			                                  	<option value="1">1级</option>
+			                                  	<option value="2">2级</option>
+			                                  </select>
+			                              </div>
+			                          	</div>
+			                          	<div class="form-group parent_level" style="padding-bottom: 0px;display: none;">
+			                              <label class="col-sm-2 col-sm-2 control-label">父级菜单</label>
+			                              <div class="col-sm-10">
+			                                  <select class="form-control" id="parent_menu">
+			                                  </select>
+			                              </div>
+			                          	</div>
+			                          	<div class="form-group" style="padding-bottom: 0px;">
+			                              <label class="col-sm-2 col-sm-2 control-label">菜单权重</label>
+			                              <div class="col-sm-10">
+			                                  <input type="text" class="form-control is-required" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="输入数字" id="menu_index">
+			                              </div>
+			                          	</div>
+			                          	<div class="form-group" style="padding-bottom: 0px;">
+			                              <label class="col-sm-2 col-sm-2 control-label">图标</label>
+			                              <div class="col-sm-10">
+			                                  <input type="text" class="form-control" id="icon_address">
+			                              </div>
+			                          	</div>
+			                          	<div class="form-group" style="padding-bottom: 0px;">
+			                              <label class="col-sm-2 col-sm-2 control-label">权限说明</label>
+			                              <div class="col-sm-10">
+			                                  <input type="text" class="form-control is-required" id="p_desc">
 			                              </div>
 			                          	</div>
 			                      	</form>	
@@ -171,15 +214,35 @@
 				            <div class="modal-footer">
 				                <button type="button" class="btn btn-default" data-dismiss="modal">取消
 				                </button>
-				                <button type="button" class="btn btn-primary" id="role-submit">
-				                    	提交更改
+				                <button type="button" class="btn btn-primary" id="permision-submit">
+				                    	添加
 				                </button>
 				            </div>
-				        </div><!-- /.modal-content -->
+				        </div>
 				    </div>
 				</div>
 				<!-- /.modal -->
-				
+				<button type="button" class="delSuccess" data-toggle="modal" data-target="#deleteTip" style="display: none;"></button>
+				<div class="modal fade" id="deleteTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered" style="top: 150px;">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				                    &times;
+				                </button>
+				                <h4 class="modal-title" id="myModalLabel">
+				                      	基佬提示
+				                </h4>
+				            </div>
+				            <div class="modal-body">
+								<h4> 删除OJBK了	</h4>				                	
+				            </div>
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
 				
 			</section>
 

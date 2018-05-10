@@ -1,5 +1,5 @@
 
-var pageSize = 5; 
+var pageSize = 10; 
 $(function(){
 	$(document).ready(function(){
 		permisionList(1);
@@ -9,24 +9,78 @@ $(function(){
 		permisionList(1);
 	});
 	
-	$('#myModal').on('show.bs.modal', function (event) {
-		console.log('show .......');
-	  	var button = $(event.relatedTarget) // Button that triggered the modal
-	  	console.log($(button).attr("class"));
-	    
-	    
-//	    var modal = $(this)
-//		modal.find('.modal-title').text('New message to ' + recipient);
-//		modal.find('.modal-body input').val(recipient)
-
+	$('#menu_type').change(function(){
+		var level = $(this).val();
+		if(level == 1){
+			$('.parent_level').fadeOut();
+			$('#parent_menu').val('');
+		}else if(level == 2){
+			$('.parent_level').fadeIn();
+			parentMenus(null);
+		}
 	});
 	
+	$('.is-required').blur(function(){
+		var val = $.trim($(this).val());
+		if(!isBlank(val)){
+			$(this).parent().removeClass('has-error');
+		}
+	});
 	
-//	提交表单后隐藏
-	$('#permisoin-submit').on('click',function(){
-		console.log('success ....');
-		
-		$('#myModal').modal('hide');
+	$('#permissionEdit').on('show.bs.modal', function (event) {
+		console.log('show .......');
+	  	var button = $(event.relatedTarget) // Button that triggered the modal
+	});
+	
+	$('#permissionEdit').on('hidden.bs.modal', function (e) {
+		$('#permissionEdit input').val('');
+		$('#permissionEdit select').val('');
+		var type = $('#menu_type').val();
+	  	if(type == 1){
+	  		$('.parent_level').hide();
+	  	}
+	});
+	$('#deleteTip').on('show.bs.modal', function (event) {});
+	
+	
+	// 权限添加，提交表单后隐藏
+	$('#permision-submit').on('click',function(){
+		var flag = true;
+		$.each($('.is-required'),function(idx,obj){
+			if(isBlank($(obj).val())){
+				$(obj).parent().addClass('has-error');
+				flag = false;
+			}
+		});
+		console.log(flag);
+		if(!flag) return ;
+		$.ajax({
+			url:"/admin/permision_add",
+			type:"POST",
+			dataType:"json",
+			data:{
+				'p_name':$('#p_name1').val(),
+				'p_code':$('#p_code').val(),
+				'menu_name':$.trim($('#menu_name').val()),
+				'menu_type': $('#menu_type').val(),
+				'parent_menu':$('#menu_type').val() == 1 ? '' : $('#parent_menu').val(),
+				'icon_type':2,
+				'icon_address':$('#icon_address').val(),
+				'menu_href':$('#menu_href').val(),
+				'menu_index':$('#menu_index').val(),
+				'p_desc':$('#p_desc').val()
+			},
+			success:function(res){
+				console.log(res);
+				if(res.code && res.code == '1000'){
+					$('#permissionEdit').modal('hide');
+					permisionList(1);
+				}
+			},
+			error:function(){
+				console.log('ajax error');
+			}
+		});
 	
 	});
 	
@@ -58,6 +112,31 @@ $(function(){
 		});
 	}
 	
+	function parentMenus(p_id){
+		$.ajax({
+			url:"/admin/parent_permision_list",
+			type:"POST",
+			dataType:"json",
+			data:{},
+			success:function(res){
+				console.log(res);
+				if(res.code && res.code == '1000'){
+					var options = '';
+					$.each(res.res_data,function(index,val){
+						options += '<option value="'+val.id+'">'+val.menu_name+'</option>';
+					});
+					$('#parent_menu').empty().append(options);
+				}
+				if(isBlank(p_id)){
+					$('#parent_menu').val(p_id);
+				}
+			},
+			error:function(){
+				console.log('ajax error');
+			}
+		});
+	}
+	
 	function showData(res,page_num){
 		if(res.code == '1000'){
 			var trs = '';
@@ -73,11 +152,27 @@ $(function(){
 				}else if(val.icon_type == 2){
 					trs += '<td><i class="fa '+val.icon_address+'"></i></td>';
 				}
-				trs += '<td><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel" rid="'+val.id+'" title="编辑"><i class="fa fa-pencil"></i></button>&nbsp;'+
-					   '<button class="btn btn-primary btn-xs" data-toggle="modal" rid="'+val.id+'" title="已有权限"><i class="glyphicon glyphicon-check"></i></button>&nbsp;'+
-					   '<button class="btn btn-primary btn-xs" data-toggle="modal" rid="'+val.id+'" title="关联权限"><i class="glyphicon glyphicon-link"></i></button>&nbsp;</td></tr>';
+				trs += '<td><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel" rid="'+val.id+'" title="编辑权限"><i class="fa fa-pencil"></i></button>&nbsp;'+
+					   '<button class="btn btn-danger btn-xs delPermision" pid="'+val.id+'" title="删除权限"><i class="fa fa-trash-o"></i></button>&nbsp;</td></tr>';
 			});
 			$('#permision_body').html('').append(trs);
+			$('.delPermision').on('click',function(){
+				var p_id = $(this).attr('pid');
+				$.ajax({
+					url:"/admin/permision_dele",
+					type:"POST",
+					dataType:"json",
+					data:{'p_id':p_id},
+					success:function(res){
+						console.log(res);
+						if(res.code && res.code == '1000'){
+							$('.delSuccess').click();
+//							$('#deleteTip').modal('hide');
+							permisionList(1);
+						}
+					}
+				});
+			});
 		}
 	}
 	

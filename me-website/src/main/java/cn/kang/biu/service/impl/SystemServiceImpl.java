@@ -1,5 +1,6 @@
 package cn.kang.biu.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -39,6 +40,25 @@ public class SystemServiceImpl implements SystemService {
 			throw new RuntimeException("jz_url exception");
 		}
 		String result = HttpUtil.doPost(JZ_URL+"/auth/permision_list", MiscUtil.createRequestParm(map));
+		return result;
+	}
+
+	@Override
+	public String getParentMenus() throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String result = HttpUtil.doPost(JZ_URL+"/auth/parent_permision_list", MiscUtil.createRequestParm(map));
+		return result;
+	}
+
+	@Override
+	public String addPermission(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/auth/permision_add", MiscUtil.createRequestParm(map));
+		return result;
+	}
+
+	@Override
+	public String deletePermison(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/auth/permision_delete", MiscUtil.createRequestParm(map));
 		return result;
 	}
 	

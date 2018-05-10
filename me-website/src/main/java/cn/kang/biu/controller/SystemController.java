@@ -81,6 +81,24 @@ public class SystemController extends BaseController {
 		}
 	}
 	
+	/**
+	 * 父菜单list
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/parent_permision_list", method = RequestMethod.POST)
+	@ResponseBody
+	public String parentPermisionList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			return systemService.getParentMenus();
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "error ");
+			return retJson.toString();
+		}
+	}
+	
 	@RequestMapping(value = "/role_update", method = RequestMethod.POST)
 	@ResponseBody
 	public String roleUpdate(HttpServletRequest request, HttpServletResponse response,
@@ -100,6 +118,47 @@ public class SystemController extends BaseController {
 			logger.error(e);
 			retJson.put("code", 1001);
 			retJson.put("msg", "update role error ");
+			return retJson.toString();
+		}
+	}
+	
+	@RequestMapping(value = "/permision_add", method = RequestMethod.POST)
+	@ResponseBody
+	public String permisionAdd(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("p_name", request.getParameter("p_name"));
+			map.put("p_code", request.getParameter("p_code"));
+			map.put("menu_name", request.getParameter("menu_name"));
+			map.put("menu_type", request.getParameter("menu_type"));
+			map.put("parent_menu", request.getParameter("parent_menu"));
+			map.put("icon_type", request.getParameter("icon_type"));
+			map.put("icon_address", request.getParameter("icon_address"));
+			map.put("menu_href", request.getParameter("menu_href"));
+			map.put("menu_index", request.getParameter("menu_index"));
+			map.put("p_desc", request.getParameter("p_desc"));
+			return systemService.addPermission(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "add permission error ");
+			return retJson.toString();
+		}
+	}
+	
+	@RequestMapping(value = "/permision_dele", method = RequestMethod.POST)
+	@ResponseBody
+	public String permisionDele(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("p_id", request.getParameter("p_id"));
+			return systemService.deletePermison(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "dele permission error ");
 			return retJson.toString();
 		}
 	}
