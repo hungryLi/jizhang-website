@@ -118,7 +118,7 @@
 					</div>
 				</section>
 				
-				<!-- 模态框（Modal） -->
+				<!-- 模态框（Modal）角色编辑 -->
 				<div class="modal fade" id="roleModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				    <div class="modal-dialog modal-dialog-centered" style="top: 200px;">
 				        <div class="modal-content">
@@ -142,7 +142,7 @@
 			                          	<div class="form-group" style="padding-bottom: 0px;">
 			                              <label class="col-sm-2 col-sm-2 control-label">角色代码</label>
 			                              <div class="col-sm-10">
-			                                  <input type="text" class="form-control is-required" id="role_code">
+			                                  <input type="text" class="form-control is-required" id="role_code" disabled="disabled">
 			                              </div>
 			                          	</div>
 			                          	<div class="form-group" style="padding-bottom: 0px;">
@@ -165,7 +165,56 @@
 				    </div>
 				</div>
 				<!-- /.modal -->
-				
+				<!-- 模态框，角色已有权限列表 -->
+				<div class="modal fade" id="role_has_permision" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered" style="top: 200px;">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				                    &times;
+				                </button>
+				                <h4 class="modal-title" id="myModalLabel">
+				                         	已有权限
+				                </h4>
+				            </div>
+				            <div class="modal-body">
+								<div class="input-group" style="width: 200px;margin-top: 10px;">
+									<input type="text" class="form-control input-sm" id="p_name" placeholder="权限名称">
+									<div class="input-group-addon query_has_permision" style="cursor: pointer;">查询</div>
+								</div>
+								<h3></h3>
+								<input type="hidden" id="has_p_id">
+								<table class="table table-hover">
+	                              <thead>
+		                              <tr>
+		                                  <th>No.</th>
+		                                  <th>权限名称</th>
+		                                  <th>权限代码</th>
+		                                  <th>菜单名称</th>
+		                              </tr>
+	                              </thead>
+	                              <tbody id="role_has_body">
+	                              	<!-- <tr>
+	                              		<td>1</td>
+	                              		<td>账单</td>
+	                              		<td>abc.websote</td>
+	                              		<td>账单</td>
+	                              	</tr> -->
+	                              </tbody>
+	                          </table>
+							  <div>
+	                          	<ul id="role_has_paginator" class="pagination pagination-sm">
+	                          	</ul>
+	                          </div>
+	                          
+				            </div>
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-default" data-dismiss="modal">Close掉
+				                </button>
+				            </div>
+				        </div><!-- /.modal-content -->
+				    </div>
+				</div>
 				
 			</section>
 
@@ -187,6 +236,7 @@
 
 		<script type="text/javascript" src="/assets/js/gritter/js/jquery.gritter.js"></script>
 		<script type="text/javascript" src="/assets/js/gritter-conf.js"></script>
+		<script type="text/javascript" src="/assets/js/paginator/bootstrap-paginator.js"></script>
 
 		<!--script for this page-->
 		<script src="/assets/js/sparkline-chart.js"></script>

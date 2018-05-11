@@ -61,6 +61,18 @@ public class SystemServiceImpl implements SystemService {
 		String result = HttpUtil.doPost(JZ_URL+"/auth/permision_delete", MiscUtil.createRequestParm(map));
 		return result;
 	}
+
+	@Override
+	public String queryPermissionById(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/auth/permision_query", MiscUtil.createRequestParm(map));
+		return result;
+	}
+
+	@Override
+	public String roleHasPermisions(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/auth/role_has_permisions", MiscUtil.createRequestParm(map));
+		return result;
+	}
 	
 	
 	

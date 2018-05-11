@@ -1,13 +1,11 @@
+var pageSize = 8; 
 $(function(){
 	
-	// $('#roleModel').modal('show');  
-	// $('#roleModel').modal('hide');
 	$(document).ready(function(){
 		list();
 	});
 	
 	$('#roleModel').on('show.bs.modal', function (event) {
-		console.log('show .......');
 	  	var button = $(event.relatedTarget) // Button that triggered the modal
 	  	var rid = $(button).attr("rid");
 	  	var trObj = $('.role_'+rid);
@@ -15,11 +13,12 @@ $(function(){
 	  	$('#role_code').val($(trObj).children('td').eq(2).text());
 	  	$('#role_desc').val($(trObj).children('td').eq(3).text());
 	  	$('#role-submit').attr('r_id',rid);
-//	    var modal = $(this)
-//		modal.find('.modal-title').text('New message to ' + recipient);
-//		modal.find('.modal-body input').val(recipient)
 	});
 	
+	$('.query_has_permision').on('click',function(){
+		var pname = $(this).prev().val();
+		queryHasPermisions(pname,1);
+	})
 	
 //	编辑角色信息
 	$('#role-submit').on('click',function(){
@@ -131,10 +130,15 @@ $(function(){
 							   '<td>'+val.role_code+'</td>'+
 							   '<td>'+val.role_desc+'</td>'+
 							   '<td><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel" rid="'+val.id+'" title="编辑"><i class="fa fa-pencil"></i></button>&nbsp;'+
-							   '<button class="btn btn-primary btn-xs" data-toggle="modal" rid="'+val.id+'" title="已有权限"><i class="glyphicon glyphicon-check"></i></button>&nbsp;'+
+							   '<button class="btn btn-primary btn-xs roleHas" data-toggle="modal" data-target="#role_has_permision" rid="'+val.id+'" title="已有权限"><i class="glyphicon glyphicon-check"></i></button>&nbsp;'+
 							   '<button class="btn btn-primary btn-xs" data-toggle="modal" rid="'+val.id+'" title="关联权限"><i class="glyphicon glyphicon-link"></i></button>&nbsp;</td></tr>';
 					});
 					$('#role_body').html('').append(trs);
+					$('.roleHas').on('click',function(){
+						var rid = $(this).attr('rid');
+						$('#has_p_id').val(rid);
+						queryHasPermisions('',1);
+					});
 				}
 			},
 			error:function(){
@@ -143,5 +147,69 @@ $(function(){
 		});
 	}
 	
+	// 查询角色已有权限列表
+	function queryHasPermisions(p_name,page_num){
+		$.ajax({
+			url:"/admin/role_has_permision_list",
+			type:"POST",
+			dataType:"json",
+			data:{'page_num':page_num,'page_size':pageSize,'p_name':p_name,'r_id':$('#has_p_id').val()},
+			success:function(res){
+				console.log(res);
+				var total = 1;
+				if(res.code == '1000'){
+					showHasPermisionData(res,page_num);
+					if(res.count > 0){
+						total = res.count;
+					}
+				}
+				hasPagenator(page_num,total,p_name);
+			},
+			error:function(){ console.log('ajax error'); }
+		});
+	}
+	function showHasPermisionData(res,page_num){
+		var trs = '';
+		$.each(res.res_data,function(idx,val){
+			trs += '<tr><td>'+(idx + 1 + (page_num-1)*pageSize)+'</td>'+
+				'<td>'+val.p_name+'</td>'+
+				'<td>'+val.p_code+'</td>'+
+				'<td>'+val.menu_name+'</td>';
+		});
+		$('#role_has_body').empty().append(trs);
+	}
+	function hasPagenator(page_num,total,p_name){
+		var totalPages = total%pageSize == 0 ? (total/pageSize) : (parseInt(total/pageSize) + 1);
+		var option = {
+			    currentPage: page_num,
+			    totalPages: totalPages,
+			    size:"normal",
+			    bootstrapMajorVersion:3,
+			    alignment:'right',
+			    numberOfPages:6,
+			    itemTexts: function (type, page, current) {
+			        switch (type) {
+			        case "first": return "首页";
+			        case "prev": return "上一页";
+			        case "next": return "下一页";
+			        case "last": return "末页";
+			        case "page": return page;
+			        }//默认显示的是第一页。
+			    },
+		        onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+		            $.ajax({
+		                url:'/admin/role_has_permision_list',
+		                type:'POST',
+		                data:{ 'page_num':page,'page_size':pageSize,'p_name':p_name,'r_id':$('#has_p_id').val() },
+		                dataType:'JSON',
+		                success:function (res) {
+		                	console.log(res);
+		                	showHasPermisionData(res,page);
+		                }
+		            })
+		        }
+		}
+		$('#role_has_paginator').bootstrapPaginator(option);
+	}
 	
 });

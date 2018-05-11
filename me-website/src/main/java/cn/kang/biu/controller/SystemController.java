@@ -128,6 +128,7 @@ public class SystemController extends BaseController {
 		JSONObject retJson = new JSONObject();
 		try {
 			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("p_id", request.getParameter("p_id"));
 			map.put("p_name", request.getParameter("p_name"));
 			map.put("p_code", request.getParameter("p_code"));
 			map.put("menu_name", request.getParameter("menu_name"));
@@ -147,6 +148,23 @@ public class SystemController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/permission_query_id", method = RequestMethod.POST)
+	@ResponseBody
+	public String permisionQueryById(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "p_id", required = true) Integer p_id) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("p_id", p_id);
+			return systemService.queryPermissionById(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "query permission error ");
+			return retJson.toString();
+		}
+	}
+	
 	@RequestMapping(value = "/permision_dele", method = RequestMethod.POST)
 	@ResponseBody
 	public String permisionDele(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -162,6 +180,27 @@ public class SystemController extends BaseController {
 			return retJson.toString();
 		}
 	}
-	
-	
+
+	@RequestMapping(value = "/role_has_permision_list", method = RequestMethod.POST)
+	@ResponseBody
+	public String roleHasPermisionList(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "page_num", required = true) Integer page_num,
+			@RequestParam(value = "page_size",required = true) Integer page_size,
+			@RequestParam(value = "p_name",required = false) String p_name,
+			@RequestParam(value = "r_id",required = true) Integer r_id) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("page_num", page_num);
+			map.put("page_size", page_size);
+			map.put("p_name", p_name);
+			map.put("r_id", r_id);
+			return systemService.roleHasPermisions(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "role_has_permision_list error ");
+			return retJson.toString();
+		}
+	}
 }

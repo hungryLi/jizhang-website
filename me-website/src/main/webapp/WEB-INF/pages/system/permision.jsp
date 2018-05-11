@@ -93,49 +93,12 @@
 	                          </div>
 							</div>
 							
-							<!-- <div class="form-panel" style="margin-top: 70px;">
-								<h5>
-									<i class="fa fa-angle-right"></i>
-									添加角色
-								</h5>
-								<hr />
-								<form class="form-horizontal style-form role_ad_form">
-		                          	<div class="form-group">
-		                              <label class="col-sm-2 col-sm-2 control-label">角色名称</label>
-		                              <div class="col-sm-10">
-		                                  <input type="text" class="form-control is-required" id="add_role_name">
-		                              </div>
-		                          	</div>
-		                          	<div class="form-group">
-		                              <label class="col-sm-2 col-sm-2 control-label">角色代码</label>
-		                              <div class="col-sm-10">
-		                                  <input type="text" class="form-control is-required" id="add_role_code">
-		                              </div>
-		                          	</div>
-		                          	<div class="form-group">
-		                              <label class="col-sm-2 col-sm-2 control-label">说明</label>
-		                              <div class="col-sm-10">
-		                                  <input type="text" class="form-control is-required" id="add_role_desc">
-		                              </div>
-		                          	</div>
-		                          	<div class="form-group">
-									    <div class="col-sm-offset-2 col-sm-10">
-									      <button type="button" class="btn btn-default role_add">添加</button>&nbsp;&nbsp;
-									      <button type="button" class="btn btn-default role_rest">重置</button>
-									    </div>
-								  	</div>
-		                      	</form>	
-							</div> -->
-							
-							
-							
-							
-							
 						</div>
 					</div>
 				</section>
 				
-				<!-- 模态框（Modal 权限添加） -->
+				<!-- 模态框（Modal 权限编辑） -->
+				<button type="button" class="pEdit" data-toggle="modal" data-target="#permissionEdit" style="display: none;"></button>
 				<div class="modal fade" id="permissionEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				    <div class="modal-dialog modal-dialog-centered" style="top: 150px;">
 				        <div class="modal-content">
@@ -150,6 +113,7 @@
 				            <div class="modal-body">
 				                	
 									<form class="form-horizontal style-form" method="get">
+										<input type="hidden" name="p_id" id="p_id">
 			                          	<div class="form-group" style="padding-bottom: 0px;">
 			                              <label class="col-sm-2 col-sm-2 control-label">权限名称</label>
 			                              <div class="col-sm-10">
@@ -221,6 +185,7 @@
 				        </div>
 				    </div>
 				</div>
+				
 				<!-- /.modal -->
 				<button type="button" class="delSuccess" data-toggle="modal" data-target="#deleteTip" style="display: none;"></button>
 				<div class="modal fade" id="deleteTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

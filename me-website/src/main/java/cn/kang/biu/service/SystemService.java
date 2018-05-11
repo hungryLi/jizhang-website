@@ -16,4 +16,8 @@ public interface SystemService {
 
 	String deletePermison(Map<String, Object> map) throws Exception;
 
+	String queryPermissionById(Map<String, Object> map) throws Exception;
+
+	String roleHasPermisions(Map<String, Object> map) throws Exception;
+
 }

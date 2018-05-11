@@ -28,7 +28,6 @@ $(function(){
 	});
 	
 	$('#permissionEdit').on('show.bs.modal', function (event) {
-		console.log('show .......');
 	  	var button = $(event.relatedTarget) // Button that triggered the modal
 	});
 	
@@ -52,13 +51,13 @@ $(function(){
 				flag = false;
 			}
 		});
-		console.log(flag);
 		if(!flag) return ;
 		$.ajax({
 			url:"/admin/permision_add",
 			type:"POST",
 			dataType:"json",
 			data:{
+				'p_id':isBlank($('#p_id').val())?'':$('#p_id').val(), //有无id判断新增还是修改
 				'p_name':$('#p_name1').val(),
 				'p_code':$('#p_code').val(),
 				'menu_name':$.trim($('#menu_name').val()),
@@ -113,6 +112,7 @@ $(function(){
 	}
 	
 	function parentMenus(p_id){
+		$('.parent_level').fadeIn();
 		$.ajax({
 			url:"/admin/parent_permision_list",
 			type:"POST",
@@ -127,7 +127,7 @@ $(function(){
 					});
 					$('#parent_menu').empty().append(options);
 				}
-				if(isBlank(p_id)){
+				if(!isBlank(p_id)){
 					$('#parent_menu').val(p_id);
 				}
 			},
@@ -152,7 +152,7 @@ $(function(){
 				}else if(val.icon_type == 2){
 					trs += '<td><i class="fa '+val.icon_address+'"></i></td>';
 				}
-				trs += '<td><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel" rid="'+val.id+'" title="编辑权限"><i class="fa fa-pencil"></i></button>&nbsp;'+
+				trs += '<td><button class="btn btn-primary btn-xs editPermison" data-toggle="modal" data-target="#roleModel" pid="'+val.id+'" title="编辑权限"><i class="fa fa-pencil"></i></button>&nbsp;'+
 					   '<button class="btn btn-danger btn-xs delPermision" pid="'+val.id+'" title="删除权限"><i class="fa fa-trash-o"></i></button>&nbsp;</td></tr>';
 			});
 			$('#permision_body').html('').append(trs);
@@ -167,13 +167,50 @@ $(function(){
 						console.log(res);
 						if(res.code && res.code == '1000'){
 							$('.delSuccess').click();
-//							$('#deleteTip').modal('hide');
 							permisionList(1);
 						}
 					}
 				});
 			});
+			$('.editPermison').on('click',function(){
+				var pid = $(this).attr('pid');
+				$('#p_id').val(pid);
+				queryPermisin(pid);
+			});
 		}
+	}
+	
+	/**
+	 * 主键查询权限
+	 */
+	function queryPermisin(pid){
+		$.ajax({
+			url:"/admin/permission_query_id",
+			type:"POST",
+			dataType:"json",
+			data:{p_id:pid},
+			success:function(res){
+				console.log(res);
+				if(res.code && res.code == '1000'){
+					var data =  JSON.parse(res.res_data);
+					$('#p_name1').val(data.pName);
+					$('#p_code').val(data.pCode);
+					$('#menu_name').val(data.menuName);
+					$('#menu_href').val(data.menuHref);
+					$('#menu_type').val(data.menuType);
+					$('#menu_index').val(data.menuIndex);
+					$('#icon_address').val(isBlank(data.iconAddress) || data.iconAddress == 'null' ? '' : data.iconAddress);
+					$('#p_desc').val(data.pDesc);
+					if(data.menuType == 2){
+						parentMenus(data.parentMenu);
+					}
+					$('.pEdit').click();
+				}
+			},
+			error:function(){
+				console.log('ajax error');
+			}
+		});
 	}
 	
 	function pagenator(page_num,total){
@@ -184,7 +221,7 @@ $(function(){
 			    size:"normal",
 			    bootstrapMajorVersion:3,
 			    alignment:'right',
-			    numberOfPages:5,
+			    numberOfPages:10,
 			    itemTexts: function (type, page, current) {
 			        switch (type) {
 			        case "first": return "首页";
