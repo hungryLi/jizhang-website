@@ -73,6 +73,12 @@ public class SystemServiceImpl implements SystemService {
 		String result = HttpUtil.doPost(JZ_URL+"/auth/role_has_permisions", MiscUtil.createRequestParm(map));
 		return result;
 	}
+
+	@Override
+	public String roleRelaPermisions(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/auth/role_rel_permisions", MiscUtil.createRequestParm(map));
+		return result;
+	}
 	
 	
 	

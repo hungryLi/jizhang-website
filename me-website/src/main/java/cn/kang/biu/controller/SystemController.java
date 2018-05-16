@@ -1,6 +1,7 @@
 package cn.kang.biu.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.kang.biu.service.SystemService;
+import cn.kang.biu.service.UserAuthService;
+import cn.kang.biu.vo.PermisionVo;
 import platform.common.base.console.controller.BaseController;
 
 @Controller
@@ -28,17 +31,17 @@ public class SystemController extends BaseController {
 	
 	@Autowired
 	private SystemService systemService;
+	@Autowired
+	private UserAuthService userAuthService;
 	
 	@RequestMapping(value = "/role_mgr", method = RequestMethod.GET)
-	public ModelAndView toRolePage(HttpServletRequest request, HttpServletResponse response){
-		ModelAndView view = new ModelAndView("/system/role");
-		return view;
+	public ModelAndView toRolePage(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		return modelData(request,response,"/system/role");
 	}
 	
 	@RequestMapping(value = "/permision_mgr", method = RequestMethod.GET)
-	public ModelAndView toPermisionPage(HttpServletRequest request, HttpServletResponse response){
-		ModelAndView view = new ModelAndView("/system/permision");
-		return view;
+	public ModelAndView toPermisionPage(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		return modelData(request,response,"/system/permision");
 	}
 	
 	@RequestMapping(value = "/role_list", method = RequestMethod.POST)
@@ -181,13 +184,14 @@ public class SystemController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/role_has_permision_list", method = RequestMethod.POST)
+	@RequestMapping(value = "/role_permision_list", method = RequestMethod.POST)
 	@ResponseBody
 	public String roleHasPermisionList(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "page_num", required = true) Integer page_num,
 			@RequestParam(value = "page_size",required = true) Integer page_size,
 			@RequestParam(value = "p_name",required = false) String p_name,
-			@RequestParam(value = "r_id",required = true) Integer r_id) throws Exception{
+			@RequestParam(value = "r_id",required = true) Integer r_id,
+			@RequestParam(value = "r_type",required = true) Integer r_type) throws Exception{
 		JSONObject retJson = new JSONObject();
 		try {
 			Map<String, Object> map = new HashMap<String,Object>();
@@ -195,6 +199,7 @@ public class SystemController extends BaseController {
 			map.put("page_size", page_size);
 			map.put("p_name", p_name);
 			map.put("r_id", r_id);
+			map.put("r_type", r_type);
 			return systemService.roleHasPermisions(map);
 		} catch (Exception e) {
 			logger.error(e);
@@ -202,5 +207,35 @@ public class SystemController extends BaseController {
 			retJson.put("msg", "role_has_permision_list error ");
 			return retJson.toString();
 		}
+	}
+	
+	@RequestMapping(value = "/role_rela_permision", method = RequestMethod.POST)
+	@ResponseBody
+	public String roleRelaPermisions(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "p_ids", required = true) String p_ids,
+			@RequestParam(value = "type", required = true) Integer type,
+			@RequestParam(value = "r_id",required = true) Integer r_id) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("p_ids", p_ids);
+			map.put("r_id", r_id);
+			map.put("type", type);
+			return systemService.roleRelaPermisions(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "role_rela_permision error ");
+			return retJson.toString();
+		}
+	}
+	
+	
+
+	private ModelAndView modelData(HttpServletRequest request, HttpServletResponse response,String pageUrl) throws Exception {
+		ModelAndView view = new ModelAndView(pageUrl);
+		List<PermisionVo> nvs = userAuthService.getMenuLists();
+		view.addObject("nav_list", nvs);
+		return view;
 	}
 }

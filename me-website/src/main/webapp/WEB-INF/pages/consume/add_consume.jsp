@@ -9,7 +9,7 @@
 		<meta name="author" content="Dashboard">
 		<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 	
-		<title>role</title>
+		<title>记录消费信息</title>
 	
 		<!--external css-->
 	    <link href="/assets/css/bootstrap.css" rel="stylesheet">
@@ -21,93 +21,107 @@
 	    <link rel="stylesheet" type="text/css" href="/assets/css/zabuto_calendar.css">
 	    <link rel="stylesheet" type="text/css" href="/assets/js/gritter/css/jquery.gritter.css" />
 	    <script src="/assets/js/chart-master/Chart.js"></script>
+	    <style type="text/css">
+	    	.form-horizontal.style-form .form-group{
+	    		border-bottom : 0px;
+	    	}
+	    	.form-horizontal .control-label{
+	    		text-align: right;
+	    	}
+	    	.upload_images img{
+	    		cursor: pointer;
+	    	}
+	    </style>
 	</head>
 <body>
 	
 
 		<section id="container">
 
-			<!--header end-->
-
-			<!--sidebar end-->
 			<jsp:include page="../header.jsp" flush="true" />
-			
-			<div class="copyrights">Collect from
-				<a href="http://www.cssmoban.com/">网页模板</a>
-			</div>
 
 			<section id="main-content">
 				<section class="wrapper">
-					<h3>
+					<h4>
 						<i class="fa fa-angle-right"></i>
-						角色管理
-					</h3>
+						消费信息
+					</h4>
 					
-					<div class="row mt" style="margin-top: 20px;">
-						<div class="col-lg-12">
-							<div class="form-panel">
-								<h5>
-									<i class="fa fa-angle-right"></i>
-									角色列表
-								</h5>
-								<hr />
-								<table class="table table-hover">
-	                              <thead>
-		                              <tr>
-		                                  <th>No.</th>
-		                                  <th>角色名称</th>
-		                                  <th>角色代码</th>
-		                                  <th>说明</th>
-		                                  <th>操作</th>
-		                              </tr>
-	                              </thead>
-	                              <tbody id="role_body">
-		                             <!--  <tr>
-		                                  <td>1</td>
-		                                  <td>Mark</td>
-		                                  <td>Otto</td>
-		                                  <td>@mdo</td>
-		                                  <td>
-		                                  	<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#roleModel"><i class="fa fa-pencil"></i></button>&nbsp;
-		                                  	<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-		                                  </td>
-		                              </tr> -->
-	                              </tbody>
-	                          </table>
-							</div>
+					<div class="row mt form-panel" style="margin-top: 20px;">
+						<div class="col-lg-10">
 							
-							<div class="form-panel" style="margin-top: 70px;">
+							<div class="form-panel1" style="margin-top: 70px;">
 								<h5>
-									<i class="fa fa-angle-right"></i>
-									添加角色
 								</h5>
-								<hr />
-								<form class="form-horizontal style-form role_ad_form">
+								<div class="form-horizontal style-form role_ad_form" onsubmit="return false;">
 		                          	<div class="form-group">
-		                              <label class="col-sm-2 col-sm-2 control-label">角色名称</label>
+		                              <label class="col-sm-2 col-sm-2 control-label">消费了啥</label>
 		                              <div class="col-sm-10">
-		                                  <input type="text" class="form-control is-required" id="add_role_name">
+		                                  <input type="text" class="form-control" id="consume_title">
 		                              </div>
 		                          	</div>
 		                          	<div class="form-group">
-		                              <label class="col-sm-2 col-sm-2 control-label">角色代码</label>
+		                              <label class="col-sm-2 col-sm-2 control-label">消费描述</label>
 		                              <div class="col-sm-10">
-		                                  <input type="text" class="form-control is-required" id="add_role_code">
+		                                 <textarea class="form-control" rows="3" id="consume_desc"></textarea>
 		                              </div>
 		                          	</div>
 		                          	<div class="form-group">
-		                              <label class="col-sm-2 col-sm-2 control-label">说明</label>
+		                              <label class="col-sm-2 col-sm-2 control-label"></label>
+		                              <div class="col-sm-10 upload_images">
+		                              	  <form action="/consume/upload_img" method="POST" id="form_file1">
+			                              	  <input type="file" name="pic_address" id="input_file1" style="display: none;">
+		                              	  </form>
+		                              	  <form action="/consume/upload_img" method="POST" id="form_file2">
+			                              	  <input type="file" name="pic_address" id="input_file2" style="display: none;">
+		                              	  </form>
+		                                  <image alt="" src="/assets/img/image_add.jpg" class="fa fa-picture-o fa-4x" id="file1"  style="height: 150px;width: 150px;"/>
+		                                  <image alt="" src="/assets/img/image_add.jpg" class="fa fa-picture-o fa-4x" id="file2" style="height: 150px;width: 150px;"/>
+		                              </div>
+		                          	</div>
+		                          	<div class="form-group">
+		                              <label class="col-sm-2 col-sm-2 control-label">总额</label>
 		                              <div class="col-sm-10">
-		                                  <input type="text" class="form-control is-required" id="add_role_desc">
+		                                  <input type="text" class="form-control is-required" id="price">
+		                              </div>
+		                          	</div>
+		                          	<div class="form-group">
+		                              <label class="col-sm-2 col-sm-2 control-label">地点</label>
+		                              <div class="col-sm-10">
+		                                  <input type="text" class="form-control is-required" id="consume_address">
+		                              </div>
+		                          	</div>
+		                          	<div class="form-group">
+		                              <label class="col-sm-2 col-sm-2 control-label">消费类型</label>
+		                              <div class="col-sm-10">
+		                                  <input type="radio" class="handler_type" name="handler_type" value="0" checked="checked">个人结算 &nbsp;&nbsp;
+		                                  <input type="radio" class="handler_type" name="handler_type" value="1">账户圈结算
+		                              </div>
+		                          	</div>
+		                          	<div class="form-group select_group" style="display: none;">
+		                              <label class="col-sm-2 col-sm-2 control-label">选择账户圈</label>
+		                              <div class="col-sm-10">
+		                                  <select class="form-control acount_groups" >
+		                                  	<option>602基佬圈</option>
+		                                  	<option>地球村</option>
+		                                  </select>
+		                              </div>
+		                          	</div>
+		                          	<div class="form-group select_member" style="display: none;">
+		                              <label class="col-sm-2 col-sm-2 control-label">参与人(自己除外)</label>
+		                              <div class="col-sm-10 group_members">
+		                                  <input type="checkbox" name="join_one" value="1">保健哥
+		                                  <input type="checkbox" name="join_one" value="1">保健哥
+		                                  <input type="checkbox" name="join_one" value="1">保健哥
 		                              </div>
 		                          	</div>
 		                          	<div class="form-group">
 									    <div class="col-sm-offset-2 col-sm-10">
-									      <button type="button" class="btn btn-default role_add">添加</button>&nbsp;&nbsp;
-									      <button type="button" class="btn btn-default role_rest">重置</button>
+									      <button type="button" class="btn btn-default consume_add">添加</button>&nbsp;&nbsp;
+									      <button type="button" class="btn btn-default consume_reset">重置</button>
 									    </div>
 								  	</div>
-		                      	</form>	
+		                      	</div>	
 							</div>
 							
 							
@@ -297,8 +311,9 @@
 		<!--script for this page-->
 		<script src="/assets/js/sparkline-chart.js"></script>
 		<script src="/assets/js/zabuto_calendar.js"></script>
+		<script src="/assets/js/jquery.form.js"></script>
    		<script src="${pageContext.request.contextPath}/pages/comm/js/comm.js"></script>
-		<script src="${pageContext.request.contextPath}/pages/system/role.js"></script>
+		<script src="${pageContext.request.contextPath}/pages/consume/add_consume.js"></script>
 
 
 </body>

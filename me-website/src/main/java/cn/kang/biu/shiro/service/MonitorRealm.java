@@ -93,7 +93,7 @@ public class MonitorRealm extends AuthorizingRealm {
 		if("0".equals(jsonObject.optString("code")) && jsonObject.has("res_data")){
 			user = new UserInfoVO();
 			JSONObject json = jsonObject.optJSONObject("res_data");
-			user.setId(json.optInt("user_id"));
+			user.setId(json.optInt("id"));
 			user.setUserName(json.optString("user_name"));
 			user.setLoginId(json.optString("user_name"));
 			user.setPhone(json.optString("phone"));

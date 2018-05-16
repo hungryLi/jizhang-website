@@ -20,4 +20,6 @@ public interface SystemService {
 
 	String roleHasPermisions(Map<String, Object> map) throws Exception;
 
+	String roleRelaPermisions(Map<String, Object> map) throws Exception;
+
 }

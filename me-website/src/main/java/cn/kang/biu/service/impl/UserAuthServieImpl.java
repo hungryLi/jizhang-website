@@ -71,7 +71,9 @@ public class UserAuthServieImpl implements UserAuthService {
 		menu.setId(Integer.valueOf(menuMap.get("id").toString()));
 		menu.setMenuName(menuMap.get("menu_name").toString());
 		menu.setIconType(Integer.valueOf(menuMap.get("icon_type").toString()));
-		menu.setIconAddress(menuMap.get("icon_address").toString());
+		if(!MiscUtil.isEmpty(menuMap.get("icon_address"))) {
+			menu.setIconAddress(menuMap.get("icon_address").toString());
+		}
 		menu.setMenuHref(menuMap.get("menu_href").toString());
 		if(!MiscUtil.isEmpty(menuMap.get("parent_menu"))) {
 			menu.setParentMenu(Integer.valueOf(menuMap.get("parent_menu").toString()));

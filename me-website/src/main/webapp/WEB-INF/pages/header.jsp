@@ -136,7 +136,7 @@
                       </c:if>
                   	</li>
                   </c:forEach>
-                  <li class="sub-menu">
+                  <!-- <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-desktop"></i>
                           <span>账户圈管理</span>
@@ -144,7 +144,7 @@
                       <ul class="sub">
                           <li><a  href="calendar.html">账户圈信息</a></li>
                           <li><a  href="gallery.html">账户圈申请</a></li>
-                          <!--<li><a  href="todo_list.html">Todo List</a></li>-->
+                          <li><a  href="todo_list.html">Todo List</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -200,9 +200,11 @@
                           <li><a  href="morris.html">Morris</a></li>
                           <li><a  href="chartjs.html">Chartjs</a></li>
                       </ul>
-                  </li>
+                  </li> -->
 
               </ul>
               <!-- sidebar menu end-->
           </div>
+          <input type="hidden" id="user_id" value="${userinfo.id }">
       </aside>
+	  

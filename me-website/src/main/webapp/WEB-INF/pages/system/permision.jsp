@@ -211,9 +211,9 @@
 				
 			</section>
 
-			<!--footer start-->
-			<jsp:include page="../footer.jsp" flush="true" />
 		</section>
+		<!--footer start-->
+		<jsp:include page="../footer.jsp" flush="true" />
 
 		<!-- js placed at the end of the document so the pages load faster -->
 		<script src="/assets/js/jquery.js"></script>
