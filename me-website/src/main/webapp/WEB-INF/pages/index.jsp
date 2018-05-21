@@ -5,246 +5,309 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="Dashboard">
-	<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-	<title>基账</title>
-	
-    <!--external css-->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-	<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-	<link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
-    
-    <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
-    <script src="assets/js/chart-master/Chart.js"></script>
-	
-</head>
-<body>
-	
-	
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <section id="container" >
-      
-      <jsp:include page="header.jsp" flush="true" />
-      
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
+        <title>hungryLi</title>
 
-              <div class="row">
-                  <div class="col-lg-12 main-chart">
-                  
-                  	<div class="row mtbox">
-                  		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                  			<div class="box1">
-					  			<span class="li_heart"></span>
-					  			<h3>933</h3>
-                  			</div>
-					  			<p>933 People liked your page the last 24hs. Whoohoo!</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_cloud"></span>
-					  			<h3>+48</h3>
-                  			</div>
-					  			<p>48 New files were added in your cloud storage.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_stack"></span>
-					  			<h3>23</h3>
-                  			</div>
-					  			<p>You have 23 unread messages in your inbox.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_news"></span>
-					  			<h3>+10</h3>
-                  			</div>
-					  			<p>More than 10 news were added in your reader.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_data"></span>
-					  			<h3>OK!</h3>
-                  			</div>
-					  			<p>Your server is working perfectly. Relax & enjoy.</p>
-                  		</div>
-                  	
-                  	</div><!-- /row mt -->	
-                  
-                      
-                      <div class="row mt">
-                      <!-- SERVER STATUS PANELS -->
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn donut-chart">
-                      			<div class="white-header">
-						  			<h5>SERVER LOAD</h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-database"></i> 70%</p>
-									</div>
-	                      		</div>
-								<canvas id="serverstatus01" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: 70,
-												color:"#68dff0"
-											},
-											{
-												value : 30,
-												color : "#fdfdfd"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-								</script>
-	                      	</div><! --/grey-panel -->
-                      	</div><!-- /col-md-4-->
-                      	
+        <!-- CSS -->
+        <!-- google fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
 
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn">
-                      			<div class="white-header">
-						  			<h5>TOP PRODUCT</h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-6 col-xs-6"></div>
-	                      		</div>
-	                      		<div class="centered">
-										<img src="assets/img/product.png" width="120">
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
-                      	
-						<div class="col-md-4 mb">
-							<!-- WHITE PANEL - TOP USER -->
-							<div class="white-panel pn">
-								<div class="white-header">
-									<h5>TOP USER</h5>
-								</div>
-								<p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
-								<p><b>Zac Snider</b></p>
-								<div class="row">
-									<div class="col-md-6">
-										<p class="small mt">MEMBER SINCE</p>
-										<p>2012</p>
-									</div>
-									<div class="col-md-6">
-										<p class="small mt">TOTAL SPEND</p>
-										<p>$ 47,60</p>
-									</div>
-								</div>
-							</div>
-						</div><!-- /col-md-4 -->
-                      	
+        <!-- files -->
+        <link href="styles/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles/css/magnific-popup.css" rel="stylesheet">
+        <link href="styles/css/owl.carousel.css" rel="stylesheet">
+        <link href="styles/css/owl.carousel.theme.min.css" rel="stylesheet">
+        <link href="styles/css/ionicons.css" rel="stylesheet">
+        <link href="styles/css/main.css" rel="stylesheet">
+        <link href="styles/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+        <!--
+        	流式布局img的css
+        -->
+        <link href="styles/css/listpiccss/main.css" rel="stylesheet">
+        <link href="styles/css/listpiccss/style.css" rel="stylesheet">
 
-                    </div><!-- /row -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <!-- Site Header -->
+    	<jsp:include page="comm.jsp" flush="true"/>
+        <div class="site-header-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="index.html"><img src="styles/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-3 text-right" id="userInfo">
+                    		<c:if test="${not empty userinfo}">
+                         	欢迎：<a href="#" style="color: white;"> ${userinfo.userName}</a> / <a class="logout" style="color: white;" href="/logout">Logout</a>
+                         	</c:if>
+                         	<c:if test="${empty userinfo}">
+	                         	<a href="javascript:void(0);" onclick="popLogin();" style="color: #777;"><span class="glyphicon glyphicon-user"></span> 登录</a>
+	                        </c:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <!-- Header -->
+
+        <section id="header" class="main-header">
+            <div class="container">
+
+                <div class="row">
+                    <nav class="navbar navbar-default">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-nav-bar" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="site-nav-bar">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="index.html">首页</a></li>
+                                <li><a href="time.html">点滴</a></li>
+                                <li><a href="record.html">记录</a></li>
+                                <li><a href="resume.html">简历</a></li>
+                                <li><a href="contact.html">联系我</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                
+                <div class="intro row">
+                    <div class="overlay"></div>
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <h2 class="header-quote">Save time and lower</h2>
+                        <p>
+                            Your sweeping costs with the
+                        </p>
+                        <h1 class="header-title">Robot<br><span class="thin">Factory</span></h1>
+                    </div>
+                </div> <!-- /.intro.row -->
+            </div> <!-- /.container -->
+            <div class="nutral"></div>
+        </section> <!-- /#header -->
+
+        <section id="product" class="product">
+            <div class="container section-bg">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box">
+                            <h2 class="title">生活嘛 <span>需要点滴色彩</span></h2>
+                            <a href="time.html" class="btn btn-default btn-robot">查看更多</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row" >
+                	<div id="main" role="main" page="index">
+	                    <ul id="tiles">
+				        <!-- These are our grid blocks -->
+					        <li onClick="location.href='single-page.html';">
+					        	<img src="styles/images/pics/img1.jpg" width="200" height="200">
+					        	<div class="post-info">
+					        		<div class="post-basic-info">
+						        		<h3><a href="#">Animation films</a></h3>
+						        		<span><a href="#"><label> </label>Movies</a></span>
+						        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+					        		</div>
+					        		<div class="post-info-rate-share">
+					        			<div class="rateit">
+					        				<span> </span>
+					        			</div>
+					        			<div class="post-share">
+					        				<span> </span>
+					        			</div>
+					        			<div class="clear"> </div>
+					        		</div>
+					        	</div>
+					        </li>
+					        <li onClick="location.href='single-page.html';">
+					        	<img src="styles/images/pics/img2.jpg" width="200" height="299">
+								<div class="post-info">
+					        		<div class="post-basic-info">
+						        		<h3><a href="#">Animation films</a></h3>
+						        		<span><a href="#"><label> </label>Movies</a></span>
+						        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+					        		</div>
+					        		<div class="post-info-rate-share">
+					        			<div class="rateit">
+					        				<span> </span>
+					        			</div>
+					        			<div class="post-share">
+					        				<span> </span>
+					        			</div>
+					        			<div class="clear"> </div>
+					        		</div>
+					        	</div>
+							</li>
+					        <li onClick="location.href='single-page.html';">
+					        	<img src="styles/images/pics/img3.jpg" width="200" height="214">
+					        	<div class="post-info">
+					        		<div class="post-basic-info">
+						        		<h3><a href="#">Animation films</a></h3>
+						        		<span><a href="#"><label> </label>Movies</a></span>
+						        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+					        		</div>
+					        		<div class="post-info-rate-share">
+					        			<div class="rateit">
+					        				<span> </span>
+					        			</div>
+					        			<div class="post-share">
+					        				<span> </span>
+					        			</div>
+					        			<div class="clear"> </div>
+					        		</div>
+					        	</div>
+					        </li>
+					        <li onClick="location.href='single-page.html';">
+					        	<img src="styles/images/pics/img4.jpg" width="200" height="333">
+					        	<div class="post-info">
+					        		<div class="post-basic-info">
+						        		<h3><a href="#">Animation films</a></h3>
+						        		<span><a href="#"><label> </label>Movies</a></span>
+						        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+					        		</div>
+					        		<div class="post-info-rate-share">
+					        			<div class="rateit">
+					        				<span> </span>
+					        			</div>
+					        			<div class="post-share">
+					        				<span> </span>
+					        			</div>
+					        			<div class="clear"> </div>
+					        		</div>
+					        	</div>
+					        </li>
+				        </ul>
                     
-                    				
-					<div class="row">
-						<!-- TWITTER PANEL -->
-						<div class="col-md-4 mb">
-                      		<div class="darkblue-panel pn">
-                      			<div class="darkblue-header">
-						  			<h5>DROPBOX STATICS</h5>
-                      			</div>
-								<canvas id="serverstatus02" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: 60,
-												color:"#68dff0"
-											},
-											{
-												value : 40,
-												color : "#444c57"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-								</script>
-								<p>April 17, 2014</p>
-								<footer>
-									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
-									</div>
-									<div class="pull-right">
-										<h5>60% Used</h5>
-									</div>
-								</footer>
-                      		</div><! -- /darkblue panel -->
-						</div><!-- /col-md-4 -->
-						
-						
-						<div class="col-md-4 mb">
-							<!-- INSTAGRAM PANEL -->
-							<div class="instagram-panel pn">
-								<i class="fa fa-instagram fa-4x"></i>
-								<p>@THISISYOU<br/>
-									5 min. ago
-								</p>
-								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
-							</div>
-						</div><!-- /col-md-4 -->
-						
-						<div class="col-md-4 col-sm-4 mb">
-							<!-- REVENUE PANEL -->
-							<div class="darkblue-panel pn">
-								<div class="darkblue-header">
-									<h5>REVENUE</h5>
-								</div>
-								<div class="chart mt">
-									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
-								</div>
-								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
-							</div>
-						</div><!-- /col-md-4 -->
-						
-					</div>
-                  </div> 
-                 
-                  
-              </div>
-          </section>
-      </section>
-
-      <!--main content end-->
-      <!--footer start-->
-      
-      <!--footer end-->
-  </section>
-  <jsp:include page="footer.jsp" flush="true" />
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-1.8.3.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.sparkline.js"></script>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    <!-- Partner -->
+        <section id="partner" class="partner">
+            <div class="container section-bg">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box">
+                            <p>我的</p>
+                            <h2 class="title mt0">一些图片</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="boxed">
+                       <div class="col-sm-12">
+                           <div id="partner-slider" class="owl-carousel">
+                                <div class="item">
+                                    <img src="styles/images/6.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/7.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/8.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/9.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/6.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/7.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/8.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/9.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/6.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/7.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/8.png" alt="partner">
+                                </div>
+                                <div class="item">
+                                    <img src="styles/images/9.png" alt="partner">
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
-    <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
-    
-    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+    <!-- Footer -->
+        <footer class="footer text-center">
+            <h3> copyRight: LIKANG，91kangs.cn </h3>
+        </footer>
 
-    <!--script for this page-->
-    <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
-	
-	
-  
-	
-	
-</body>
+    <!-- Scripts -->
+        <script src="styles/js/jquery-1.12.3.min.js"></script>
+        <script src="styles/js/bootstrap.min.js"></script>
+        <script src="styles/js/jquery.magnific-popup.min.js"></script>
+        <script src="styles/js/owl.carousel.min.js"></script>
+        <script src="styles/js/script.js"></script>
+		<script type="text/javascript" src="styles/js/listpicJs/jquery.imagesloaded.js" ></script>
+		<script type="text/javascript" src="styles/js/listpicJs/jquery.wookmark.js" ></script>
+		<script src="${pageContext.request.contextPath}/pages/comm/js/index.js"></script>
+		
+		<!--
+        	流式布局的js效果
+        -->
+		<script type="text/javascript">
+		    (function ($){
+		      var $tiles = $('#tiles'),
+		          $handler = $('li', $tiles),
+		          $main = $('#main'),
+		          $window = $(window),
+		          $document = $(document),
+		          options = {
+		            autoResize: true, // This will auto-update the layout when the browser window is resized.
+		            container: $main, // Optional, used for some extra CSS styling
+		            offset: 20, // Optional, the distance between grid items
+		            itemWidth:280 // Optional, the width of a grid item
+		          };
+		      /**
+		       * Reinitializes the wookmark handler after all images have loaded
+		       */
+		      function applyLayout() {
+		        $tiles.imagesLoaded(function() {
+		          // Destroy the old handler
+		          if ($handler.wookmarkInstance) {
+		            $handler.wookmarkInstance.clear();
+		          }
+		
+		          // Create a new layout handler.
+		          $handler = $('li', $tiles);
+		          $handler.wookmark(options);
+		        });
+		      }
+		      // Call the layout function for the first time
+		      applyLayout();
+		      // Capture scroll event.
+//		      $window.bind('scroll.wookmark', onScroll);
+		    })(jQuery);
+		  </script>
+    </body>
 </html>

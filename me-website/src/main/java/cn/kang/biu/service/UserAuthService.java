@@ -20,6 +20,7 @@ public interface UserAuthService {
 	public List<Map<String, Object>> queryPrincipalRoles(Integer userId);
 
 	public List<Map<String, Object>> queryPrincipalPermisions(Integer userId);
+
 	
 }
 

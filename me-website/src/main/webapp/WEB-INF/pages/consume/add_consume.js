@@ -2,7 +2,7 @@
 $(function(){
 	var userId = $('#user_id').val();
 	$(document).ready(function(){
-//		list();
+		listConsumeType();
 	});
 	
 	$('.consume_add').on('click',function(){
@@ -22,10 +22,18 @@ $(function(){
 	});
 	$('input[type="file"]').change(function(){
 		console.log($(this).val());
+		var cls = $(this).attr('class');
 		if(isImage($(this))){
 			$(this).parent().ajaxSubmit({
 				success:function(res){
 					console.log(res);
+					if(res.code == '1000'){
+						$('#'+cls).attr('src',res.res_data);
+						$('#pic_address_'+cls).val(res.res_data);
+					}else{
+						$('#'+cls).attr('src','');
+						$('#pic_address_'+cls).val('');
+					}
 				}
 			});
 		}
@@ -64,7 +72,7 @@ $(function(){
 				success:function(res){
 					console.log(res);
 					if(res.code == '1000'){
-						var options = '<option>--请选择--</option>';
+						var options = '<option value="">--请选择--</option>';
 						$.each(res.res_data,function(index,val){
 							options += '<option value="'+val.group_id+'">'+val.group_name+'</option>';
 						});
@@ -88,7 +96,10 @@ $(function(){
 	//账户圈切换
 	$('.acount_groups').change(function(){
 		var groupId = $(this).val();
-		if(isBlank(groupId)) return ;
+		if(isBlank(groupId)) {
+			$('.group_members').empty();
+			return ;
+		}
 		$('.acount_groups').parent().removeClass('has-error'); // 去掉红色警告边框
 		$('.select_member').fadeIn();
 		$.post("/consume/query_groups_members",{'group_id':groupId},function(res){
@@ -112,12 +123,13 @@ $(function(){
 	// 添加消费记录
 	function addConsume(){
 		var flag = true;
-		$.each($('.is-required'),function(idx,obj){
+		$.each($('.role_ad_form .is-required'),function(idx,obj){
 			if(isBlank($(obj).val())){
 				$(obj).parent().addClass('has-error');
 				flag = false;
 			}
 		});
+		console.log(flag);
 		if(!flag) return ;
 		var handlerType = $("input[name='handler_type']:checked").val();
 		var groupId = $('.acount_groups').val();
@@ -130,12 +142,13 @@ $(function(){
 			}
 			//圈用户校验
 			$.each($('input[name="member_box"]'),function(idx,val){
-				if(!isBlank($(this).val())){
+				if(!isBlank($(this).val()) && $(this).is(':checked')){
 					memberArr.push($(this).val());
 				}
 			});
+			console.log(memberArr.length);
 			if(memberArr.length == 0){
-				$('.group_members').empty().append('<span style="color:#a94442;">没有圈成员!</span>');
+				$('.tipButton').click();
 				return ;
 			}
 		}
@@ -147,9 +160,10 @@ $(function(){
 			data:{
 				  'consume_title':$('#consume_title').val(),
 				  'consume_desc':$('#consume_desc').val(),
-				  'pic_address1':$('#pic_address1').val(),
-				  'pic_address2':$('#pic_address2').val(),
+				  'pic_address1':$('#pic_address_file1').val(),
+				  'pic_address2':$('#pic_address_file2').val(),
 				  'price':$.trim($('#price').val()),
+				  'consume_type':$('.consume_type').val(),
 				  'consume_address':$('#consume_address').val(),
 				  'handler_type':handlerType,
 				  'group_id':groupId,
@@ -159,7 +173,6 @@ $(function(){
 				console.log(res);
 				if(res.code == '1000'){
 					$('.role_ad_form input').val('');
-					list();
 				}
 			},
 			error:function(){
@@ -168,5 +181,16 @@ $(function(){
 		});
 	}
 	
+	function listConsumeType(){
+		$.post("/consume/query_consume_types",{},function(res){
+			if(res.code && res.code == '1000'){
+				var opts = '';
+				$.each(res.res_data,function(index,val){
+					opts += '<option value="'+val.id+'">'+val.name+'</options>';
+				})
+				$('.consume_type').empty().append(opts);
+			}
+		},"json");
+	}
 	
 });

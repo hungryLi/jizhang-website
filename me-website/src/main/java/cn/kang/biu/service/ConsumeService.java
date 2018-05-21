@@ -9,4 +9,8 @@ public interface ConsumeService {
 	String queryAccountGroups(Map<String, Object> map) throws Exception;
 
 	String queryGroupMembers(Map<String, Object> map) throws Exception;
+
+	String queryConsumeType(Map<String, Object> map) throws Exception;
+
+	String queryIndexActivity(Map<String, Object> map) throws Exception;
 }

@@ -5,8 +5,10 @@ import java.net.FileNameMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ public class ConsumeController extends BaseController  {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public String roleListPage(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String addConsume(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		JSONObject retJson = new JSONObject();
 		try {
 			Map<String, Object> map = new HashMap<String,Object>();
@@ -42,6 +44,7 @@ public class ConsumeController extends BaseController  {
 			map.put("pic_address1", request.getParameter("pic_address1"));
 			map.put("pic_address2", request.getParameter("pic_address2"));
 			map.put("price", request.getParameter("price"));
+			map.put("consume_type", request.getParameter("consume_type"));
 			map.put("consume_address", request.getParameter("consume_address"));
 			map.put("handler_type", request.getParameter("handler_type"));
 			map.put("group_id", request.getParameter("group_id"));
@@ -89,6 +92,29 @@ public class ConsumeController extends BaseController  {
 		}
 	}
 	
+	/**
+	 * 消费类型查询
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/query_consume_types", method = RequestMethod.POST)
+	@ResponseBody
+	public String queryConsumeType(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("consume_id", request.getParameter("consume_id"));
+			return consumeService.queryConsumeType(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "query_consume_types error ");
+			return retJson.toString();
+		}
+	}
+	
 	///consume/upload_img
 
 	@RequestMapping(value = "/upload_img", method = RequestMethod.POST)
@@ -97,16 +123,32 @@ public class ConsumeController extends BaseController  {
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		JSONObject retJson = new JSONObject();
 		try {
-			String fileName = UserToken.getToken().getUserName()+System.currentTimeMillis();
-			String domain = "http://91kangs.cn";
-			String url = domain + "/" + fileName + ".jpg";
+			String realPath = "";
+			String path = "";
+			String floder = "";
+			String os = System.getProperties().getProperty("os.name").toLowerCase();
+			if(os.contains("windows")) {
+				floder = "/images/";
+				HttpSession session = request.getSession();
+				ServletContext context = session.getServletContext();
+				realPath = context.getRealPath(floder);
+				System.out.println(realPath);
+			}else {
+				realPath = "/home/web_data/html/images";
+				path = "http://91kangs.cn/";
+			}
+			String fileName = file.getOriginalFilename();
+			String newFileName = UserToken.getToken().getUserName()+System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."), fileName.length());
+			String url = realPath + "/" + newFileName;
 			File newFile = new File(url);
 			file.transferTo(newFile);
+			String imgPath = path + floder + newFileName;
 			retJson.put("code", 1000);
 			retJson.put("msg", "success");
-			retJson.put("res_data", url);
+			retJson.put("res_data", imgPath);
 			return retJson.toString();
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e);
 			retJson.put("code", 1001);
 			retJson.put("msg", "upload_img error");

@@ -1,5 +1,6 @@
 package cn.kang.biu.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +24,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.kang.biu.service.ConsumeService;
 import cn.kang.biu.service.UserAuthService;
 import cn.kang.biu.shiro.credentials.AuthenticationUserInfo;
+import cn.kang.biu.shiro.service.UserToken;
 import cn.kang.biu.vo.PermisionVo;
 import platform.common.base.console.controller.BaseController;
+import platform.common.utils.MiscUtil;
+import platform.common.utils.StringUtil;
 
 @Controller
 public class IndexController extends BaseController {
@@ -35,11 +40,13 @@ public class IndexController extends BaseController {
 	
 	@Autowired
 	private UserAuthService userAuthService;
+	@Autowired
+	private ConsumeService consumeService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView accessIndex(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(!SecurityUtils.getSubject().isAuthenticated()) {
-			ModelAndView view = new ModelAndView("login");
+			ModelAndView view = new ModelAndView("index");
 			return view;
 		}
 		return index(request, response);
@@ -65,7 +72,7 @@ public class IndexController extends BaseController {
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Subject subject = SecurityUtils.getSubject();
 		if(!SecurityUtils.getSubject().isAuthenticated()) {
-			ModelAndView view = new ModelAndView("login");
+			ModelAndView view = new ModelAndView("index");
 			return view;
 		}
 		return modelData(request,response,"index");
@@ -90,7 +97,6 @@ public class IndexController extends BaseController {
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password){
 		JSONObject jsonObject = new JSONObject();
-		String userAgent = request.getHeader("User-Agent");
 		try {
 			
 			AuthenticationUserInfo token = new AuthenticationUserInfo();
@@ -102,10 +108,10 @@ public class IndexController extends BaseController {
 			try {
 				currentUser.login(token);
 				if(currentUser.isAuthenticated()){
-					return "redirect:/index";
-//					jsonObject.put("code", 10000);
-//					jsonObject.put("msg", "success");
-//					return jsonObject.toJSONString();
+					jsonObject.put("code", 10000);
+					jsonObject.put("msg", "success");
+					jsonObject.put("res_data", username);
+					return jsonObject.toJSONString();
 				}
 			} catch (UnknownAccountException e) {
 				jsonObject.put("code", 3);
@@ -212,5 +218,19 @@ public class IndexController extends BaseController {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/index_activity", method = RequestMethod.POST)
+	@ResponseBody
+	public String indexActivity(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("user_id", SecurityUtils.getSubject().isAuthenticated() ? UserToken.getToken().getId() : 1);
+			return consumeService.queryIndexActivity(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "index_activity error ");
+			return retJson.toString();
+		}
+	}
 }

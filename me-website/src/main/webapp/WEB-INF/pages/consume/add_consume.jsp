@@ -70,13 +70,15 @@
 		                              <label class="col-sm-2 col-sm-2 control-label"></label>
 		                              <div class="col-sm-10 upload_images">
 		                              	  <form action="/consume/upload_img" method="POST" id="form_file1">
-			                              	  <input type="file" name="pic_address" id="input_file1" style="display: none;">
+			                              	  <input type="file" name="pic_address" id="input_file1" class="file1" style="display: none;">
 		                              	  </form>
 		                              	  <form action="/consume/upload_img" method="POST" id="form_file2">
-			                              	  <input type="file" name="pic_address" id="input_file2" style="display: none;">
+			                              	  <input type="file" name="pic_address" id="input_file2" class="file2" style="display: none;">
 		                              	  </form>
 		                                  <image alt="" src="/assets/img/image_add.jpg" class="fa fa-picture-o fa-4x" id="file1"  style="height: 150px;width: 150px;"/>
 		                                  <image alt="" src="/assets/img/image_add.jpg" class="fa fa-picture-o fa-4x" id="file2" style="height: 150px;width: 150px;"/>
+		                                  <input type="hidden" id="pic_address_file1">
+		                                  <input type="hidden" id="pic_address_file2">
 		                              </div>
 		                          	</div>
 		                          	<div class="form-group">
@@ -94,6 +96,14 @@
 		                          	<div class="form-group">
 		                              <label class="col-sm-2 col-sm-2 control-label">消费类型</label>
 		                              <div class="col-sm-10">
+		                                  <select class="form-control consume_type" >
+		                                  	
+		                                  </select>
+		                              </div>
+		                          	</div>
+		                          	<div class="form-group">
+		                              <label class="col-sm-2 col-sm-2 control-label">结算类型</label>
+		                              <div class="col-sm-10">
 		                                  <input type="radio" class="handler_type" name="handler_type" value="0" checked="checked">个人结算 &nbsp;&nbsp;
 		                                  <input type="radio" class="handler_type" name="handler_type" value="1">账户圈结算
 		                              </div>
@@ -102,17 +112,17 @@
 		                              <label class="col-sm-2 col-sm-2 control-label">选择账户圈</label>
 		                              <div class="col-sm-10">
 		                                  <select class="form-control acount_groups" >
-		                                  	<option>602基佬圈</option>
-		                                  	<option>地球村</option>
+		                                  	<!-- <option>602基佬圈</option>
+		                                  	<option>地球村</option> -->
 		                                  </select>
 		                              </div>
 		                          	</div>
 		                          	<div class="form-group select_member" style="display: none;">
 		                              <label class="col-sm-2 col-sm-2 control-label">参与人(自己除外)</label>
 		                              <div class="col-sm-10 group_members">
+		                                  <!-- <input type="checkbox" name="join_one" value="1">保健哥
 		                                  <input type="checkbox" name="join_one" value="1">保健哥
-		                                  <input type="checkbox" name="join_one" value="1">保健哥
-		                                  <input type="checkbox" name="join_one" value="1">保健哥
+		                                  <input type="checkbox" name="join_one" value="1">保健哥 -->
 		                              </div>
 		                          	</div>
 		                          	<div class="form-group">
@@ -179,109 +189,23 @@
 				    </div>
 				</div>
 				<!-- /.modal -->
-				<!-- 模态框，角色已有权限列表 -->
-				<div class="modal fade" id="role_has_permision" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				    <div class="modal-dialog modal-dialog-centered" style="top: 50px;">
+				<button type="button" class="tipButton" data-toggle="modal" data-target="#tipModel" style="display: none;"></button>
+				<div class="modal fade" id="tipModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered" style="top: 200px;">
 				        <div class="modal-content">
 				            <div class="modal-header">
 				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 				                    &times;
 				                </button>
-				                <h4 class="modal-title" id="myModalLabel">
-				                         	已有权限
-				                </h4>
+				                <h5 class="modal-title" id="myModalLabel">
+				                            	提示
+				                </h5>
 				            </div>
 				            <div class="modal-body">
-								<div class="input-group" style="width: 200px;margin-top: 10px;">
-									<input type="text" class="form-control input-sm" id="p_name" placeholder="权限名称">
-									<div class="input-group-addon query_has_permision" style="cursor: pointer;">查询</div>
-								</div>
-								<h3></h3>
-								<input type="hidden" id="has_p_id">
-								<table class="table table-hover">
-	                              <thead>
-		                              <tr>
-		                                  <th>No.</th>
-		                                  <th>权限名称</th>
-		                                  <th>权限代码</th>
-		                                  <th>菜单名称</th>
-		                                  <th>删除</th>
-		                              </tr>
-	                              </thead>
-	                              <tbody id="role_has_body">
-	                              	<!-- <tr>
-	                              		<td>1</td>
-	                              		<td>账单</td>
-	                              		<td>abc.websote</td>
-	                              		<td>账单</td>
-	                              	</tr> -->
-	                              </tbody>
-	                          </table>
-							  <div>
-	                          	<ul id="role_has_paginator" class="pagination pagination-sm">
-	                          	</ul>
-	                          </div>
-	                          
+				                <h5>请选择参与人</h5>	
 				            </div>
 				            <div class="modal-footer">
-				                <button type="button" class="btn btn-default" data-dismiss="modal">Close掉
-				                </button>
-				                <button type="button" class="btn btn-primary" id="role-permision-del">
-				                     	删除
-				                </button>
-				            </div>
-				        </div><!-- /.modal-content -->
-				    </div>
-				</div>
-				<!-- 模态框，角色可分配权限列表 -->
-				<div class="modal fade" id="role_no_permisions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				    <div class="modal-dialog modal-dialog-centered" style="top: 50px;">
-				        <div class="modal-content">
-				            <div class="modal-header">
-				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				                    &times;
-				                </button>
-				                <h4 class="modal-title" id="myModalLabel">
-				                         	选择权限
-				                </h4>
-				            </div>
-				            <div class="modal-body">
-								<div class="input-group" style="width: 200px;margin-top: 8px;">
-									<input type="text" class="form-control input-sm" id="p_name" placeholder="权限名称">
-									<div class="input-group-addon query_nothas_permision" style="cursor: pointer;">查询</div>
-								</div>
-								<h4></h4>
-								<input type="hidden" id="nothas_p_id">
-								<table class="table table-hover">
-	                              <thead>
-		                              <tr>
-		                                  <th>No.</th>
-		                                  <th>权限名称</th>
-		                                  <th>权限代码</th>
-		                                  <th>菜单名称</th>
-		                                  <th>选择</th>
-		                              </tr>
-	                              </thead>
-	                              <tbody id="role_nothas_body">
-	                              	<!-- <tr>
-	                              		<td>1</td>
-	                              		<td>账单</td>
-	                              		<td>abc.websote</td>
-	                              		<td>账单</td>
-	                              	</tr> -->
-	                              </tbody>
-	                          </table>
-							  <div>
-	                          	<ul id="role_no_paginator" class="pagination pagination-sm">
-	                          	</ul>
-	                          </div>
-	                          
-				            </div>
-				            <div class="modal-footer">
-				                <button type="button" class="btn btn-default" data-dismiss="modal">Close
-				                </button>
-				                <button type="button" class="btn btn-primary" id="role-add-p">
-				                    	提交
+				                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE
 				                </button>
 				            </div>
 				        </div><!-- /.modal-content -->

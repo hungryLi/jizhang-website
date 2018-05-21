@@ -38,6 +38,19 @@ public class ConsumeServiceImpl implements ConsumeService {
 		String result = HttpUtil.doPost(JZ_URL+"/consume/select_group_members", MiscUtil.createRequestParm(map));
 		return result;
 	}
+
+
+	@Override
+	public String queryConsumeType(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/consume/select_consume_type", MiscUtil.createRequestParm(map));
+		return result;
+	}
+
+	@Override
+	public String queryIndexActivity(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/consume/list_index_activities", MiscUtil.createRequestParm(map));
+		return result;
+	}
 	
 	
 	
