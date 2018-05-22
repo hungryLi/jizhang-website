@@ -27,7 +27,8 @@
         <!--
         	流式布局img的css
         -->
-        <link href="styles/css/listpiccss/main.css" rel="stylesheet">
+       <!--  <link href="styles/css/listpiccss/main.css" rel="stylesheet"> -->
+        <link href="styles/css/listpiccss/main2.css" rel="stylesheet">
         <link href="styles/css/listpiccss/style.css" rel="stylesheet">
 
         <!--[if lt IE 9]>
@@ -113,7 +114,7 @@
                 
                 <div class="row" >
                 	<div id="main" role="main" page="index">
-	                    <ul id="tiles">
+	                    <ul id="tiles" class="tiles-wrap animated">
 				        <!-- These are our grid blocks -->
 					        <li onClick="location.href='single-page.html';">
 					        	<img src="styles/images/pics/img1.jpg" width="200" height="200">
@@ -269,15 +270,15 @@
         <script src="styles/js/owl.carousel.min.js"></script>
         <script src="styles/js/script.js"></script>
 		<script type="text/javascript" src="styles/js/listpicJs/jquery.imagesloaded.js" ></script>
-		<script type="text/javascript" src="styles/js/listpicJs/jquery.wookmark.js" ></script>
+		<script type="text/javascript" src="styles/js/wookmark.js" ></script>
 		<script src="${pageContext.request.contextPath}/pages/comm/js/index.js"></script>
 		
 		<!--
         	流式布局的js效果
         -->
 		<script type="text/javascript">
-		    (function ($){
-		      var $tiles = $('#tiles'),
+		    // (function ($){
+		      /* var $tiles = $('#tiles'),
 		          $handler = $('li', $tiles),
 		          $main = $('#main'),
 		          $window = $(window),
@@ -287,11 +288,11 @@
 		            container: $main, // Optional, used for some extra CSS styling
 		            offset: 20, // Optional, the distance between grid items
 		            itemWidth:280 // Optional, the width of a grid item
-		          };
+		          }; */
 		      /**
 		       * Reinitializes the wookmark handler after all images have loaded
 		       */
-		      function applyLayout() {
+		     /*  function applyLayout() {
 		        $tiles.imagesLoaded(function() {
 		          // Destroy the old handler
 		          if ($handler.wookmarkInstance) {
@@ -302,12 +303,11 @@
 		          $handler = $('li', $tiles);
 		          $handler.wookmark(options);
 		        });
-		      }
+		      } */
 		      // Call the layout function for the first time
-		      applyLayout();
+		    /*   applyLayout();
 		      // Capture scroll event.
-//		      $window.bind('scroll.wookmark', onScroll);
-		    })(jQuery);
+		    })(jQuery); */
 		  </script>
     </body>
 </html>

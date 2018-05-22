@@ -28,18 +28,19 @@ function initIndexLike(){
 	        				if(index % 3 == 1){
 	        					height = 299;
 	        				}
-	        				if(index > 2){
-		        				if(index % 3 == 0){
-		        					top = line * 380;
-		        				}
-		        				if(index % 3 == 1){
-		        					top = line * 480;
-		        				}
-		        				if(index % 3 == 2){
-		        					top = line * 380;
-		        				}
-	        				}
-	        				lis += '<li style="display: list-item; position: absolute; top: '+top+'px; left: '+left+'px;">'+
+//	        				if(index > 2){
+//		        				if(index % 3 == 0){
+//		        					top = line * 380;
+//		        				}
+//		        				if(index % 3 == 1){
+//		        					top = line * 480;
+//		        				}
+//		        				if(index % 3 == 2){
+//		        					top = line * 380;
+//		        				}
+//	        				}
+//	        				lis += '<li style="display: list-item; position: absolute; top: '+top+'px; left: '+left+'px;">'+
+	        				lis += '<li>'+
 						        		'<img src="'+val.pic_address1+'" width="200" height="'+height+'">'+
 						        		'<div class="post-info">'+
 						        		'<div class="post-basic-info">'+
@@ -60,6 +61,10 @@ function initIndexLike(){
 						       ' </li>';
 	        			});
 	        			$('#tiles').empty().append(lis);
+	        			var wookmark1 = new Wookmark('#tiles', {
+        		          outerOffset: 30, // Optional, the distance to the containers border
+        		          itemWidth: 210 // Optional, the width of a grid item
+	        			});
 	        		}
 	        	}
 	        }
