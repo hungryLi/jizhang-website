@@ -22,7 +22,13 @@ header p {
 a {
   text-decoration: none;
 }
-
+.post-basic-info span{
+	margin-top: 7px;
+    display: inline-block;
+    font-size: 9px;
+    width: 100%;
+    overflow: hidden;
+}
 /**
  * Progress bar for imagesLoaded
  */
@@ -77,7 +83,6 @@ a {
   list-style-type: none;
   background-color: #fff;
   float: left;
-  cursor: pointer;
   width: 210px;
   padding: 4px;
   border: 1px solid #dedede;
@@ -110,6 +115,7 @@ a {
 
 .tiles-wrap img {
   display: block;
+  width: 100%;
 }
 
 .tiles-wrap a {
@@ -117,7 +123,6 @@ a {
   text-align: center;
   /* display: table-cell; */
   width: 200px;
-  height: 200px;
   font-size: 2em;
   font-weight: bold;
   text-decoration: none;

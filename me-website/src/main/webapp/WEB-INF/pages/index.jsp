@@ -198,7 +198,7 @@
                 </div>
             </div>
         </section>
-        
+        <div style="clear: both;"></div>
     <!-- Partner -->
         <section id="partner" class="partner">
             <div class="container section-bg">

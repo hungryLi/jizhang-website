@@ -233,4 +233,23 @@ public class IndexController extends BaseController {
 			return retJson.toString();
 		}
 	}
+	
+	@RequestMapping(value = "/cancel_like", method = RequestMethod.POST)
+	@ResponseBody
+	public String cancelLike(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "like_id", required = true) String like_id,
+			@RequestParam(value = "r_id",required = true) String r_id) throws Exception{
+		JSONObject retJson = new JSONObject();
+		try {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("like_id", like_id);
+			map.put("r_id", r_id);
+			return consumeService.cancelLike(map);
+		} catch (Exception e) {
+			logger.error(e);
+			retJson.put("code", 1001);
+			retJson.put("msg", "cancel_like error ");
+			return retJson.toString();
+		}
+	}
 }

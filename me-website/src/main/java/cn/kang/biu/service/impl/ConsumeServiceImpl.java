@@ -51,6 +51,13 @@ public class ConsumeServiceImpl implements ConsumeService {
 		String result = HttpUtil.doPost(JZ_URL+"/consume/list_index_activities", MiscUtil.createRequestParm(map));
 		return result;
 	}
+
+
+	@Override
+	public String cancelLike(Map<String, Object> map) throws Exception {
+		String result = HttpUtil.doPost(JZ_URL+"/consume/cancel_like", MiscUtil.createRequestParm(map));
+		return result;
+	}
 	
 	
 	

@@ -13,4 +13,6 @@ public interface ConsumeService {
 	String queryConsumeType(Map<String, Object> map) throws Exception;
 
 	String queryIndexActivity(Map<String, Object> map) throws Exception;
+
+	String cancelLike(Map<String, Object> map) throws Exception;
 }
