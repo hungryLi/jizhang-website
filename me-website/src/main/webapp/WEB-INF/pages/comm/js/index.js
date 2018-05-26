@@ -1,13 +1,13 @@
 $(function(){
 	
 	$(document).ready(function(){
-		initIndexLike();
+		initList();
 	});
 	
 });
 
 // 初始化首页动态信息
-function initIndexLike(){
+function initList(){
 	var pageflag = $('#main').attr('page');
 	if(!isBlank(pageflag) && pageflag == 'index'){
 		$.ajax({
@@ -18,6 +18,7 @@ function initIndexLike(){
 	        success:function(res){
 	        	console.log(res);
 	        	if(res.code && res.count){
+	        		$('#tiles').empty();
 	        		if(res.code == '1000' && res.count >= 0){
 	        			var lis = '';
 	        			$.each(res.res_data,function(index,val){
@@ -45,16 +46,19 @@ function initIndexLike(){
 						        	'</div>'+
 						       ' </li>';
 	        			});
-	        			$('#tiles').empty().append(lis);
-	        			var wookmark1 = new Wookmark('#tiles', {
-        		          outerOffset: 40, // Optional, the distance to the containers border
-        		          itemWidth: 280, // Optional, the width of a grid item
-        		          offset:20
-	        			});
-	        			$('.cancle_like').on('click',function(){
-	        				var like_id = $(this).attr('likeid');
-	        				var r_id = $(this).attr('rid');
-	        				cancelLike(like_id,r_id);
+	        			$('#tiles').imagesLoaded(function(){
+	        				
+	        				$('#tiles').empty().append(lis);
+	        				var wookmark1 = new Wookmark('#tiles', {
+	        					outerOffset: 40, // Optional, the distance to the containers border
+	        					itemWidth: 280, // Optional, the width of a grid item
+	        					offset:20
+	        				});
+	        				$('.cancle_like').on('click',function(){
+	        					var like_id = $(this).attr('likeid');
+	        					var r_id = $(this).attr('rid');
+	        					cancelLike(like_id,r_id);
+	        				});
 	        			});
 	        		}
 	        	}
@@ -65,10 +69,10 @@ function initIndexLike(){
 
 //取消喜欢
 function cancelLike(like_id,r_id){
-	$.post('/cancel_like',{'like_id':like_id,'r_id':r_id},function(res){
+	$.post('/cancel_like',{'like_id':like_id,'r_id':r_id,'like_status':0},function(res){
 		console.log(res);
 		if(res.code && res.code == '1000'){
-			initIndexLike();
+			initList();
 //			$('#tiles').trigger('refreshWookmark');
 		}
 	},"json");

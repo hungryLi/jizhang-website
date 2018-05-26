@@ -8,6 +8,12 @@ body{
 /*======================================================================
 ##		Global Settings
 =======================================================================*/
+.heat-hover:hover{
+	color:red;	
+}
+.like-color{
+	color:red;	
+}
 .btn-robot, p{
 	font-family: 'Roboto';
 	line-height: 1.5;

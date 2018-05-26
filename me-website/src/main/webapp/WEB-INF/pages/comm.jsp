@@ -70,10 +70,10 @@
 	                	
 						<div class="login-wrap">
 				            <div class="form-group">
-					            <input type="text" class="form-control" placeholder="User Name" autofocus id="userName">
+					            <input type="text" class="form-control" placeholder="User Name" autofocus id="userName1">
 				            </div>
 				            <div class="form-group">
-				            	<input type="password" class="form-control" placeholder="Password" id="passwd">
+				            	<input type="password" class="form-control" placeholder="Password" id="passwd1">
 				            </div>
 				            <label class="checkbox">
 				            	<span class="pull-left" id="errorTip" style="color:#a94442;">
@@ -106,7 +106,7 @@
 	</div>
 	<!-- 提示信息弹出框 -->
 
-<script src="styles/js/jquery-1.12.3.min.js"></script>
+<script src="/styles/js/jquery-1.12.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/pages/comm/js/comm.js"></script>
 <script type="text/javascript">
 	function popLogin(){
@@ -176,7 +176,8 @@
 	        			var html = '欢迎：<a href="#" style="color: white;">'+res.res_data+'</a> / <a class="logout" style="color: white;" href="/logout">Logout</a>';
 	        			$('#userInfo').empty().append(html);
 	        			$('#loginModel').modal('hide');
-	        			initIndexLike();
+	        			$('#tiles').empty();
+	        			initList();
 	        		}
 	        	}
 	        }

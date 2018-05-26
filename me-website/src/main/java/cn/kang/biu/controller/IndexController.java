@@ -237,13 +237,15 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = "/cancel_like", method = RequestMethod.POST)
 	@ResponseBody
 	public String cancelLike(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "like_id", required = true) String like_id,
-			@RequestParam(value = "r_id",required = true) String r_id) throws Exception{
+			@RequestParam(value = "like_id", required = false) String like_id,
+			@RequestParam(value = "r_id",required = true) String r_id,
+			@RequestParam(value = "like_status",required = true) String like_status) throws Exception{
 		JSONObject retJson = new JSONObject();
 		try {
 			Map<String, Object> map = new HashMap<String,Object>();
 			map.put("like_id", like_id);
 			map.put("r_id", r_id);
+			map.put("like_status", like_status);
 			return consumeService.cancelLike(map);
 		} catch (Exception e) {
 			logger.error(e);

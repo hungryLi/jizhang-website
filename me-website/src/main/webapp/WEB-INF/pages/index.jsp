@@ -12,10 +12,6 @@
         <title>hungryLi</title>
 
         <!-- CSS -->
-        <!-- google fonts -->
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
-
         <!-- files -->
         <link href="styles/css/bootstrap.min.css" rel="stylesheet">
         <link href="styles/css/magnific-popup.css" rel="stylesheet">
@@ -77,11 +73,11 @@
 
                         <div class="collapse navbar-collapse" id="site-nav-bar">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="index.html">首页</a></li>
-                                <li><a href="time.html">点滴</a></li>
-                                <li><a href="record.html">记录</a></li>
-                                <li><a href="resume.html">简历</a></li>
-                                <li><a href="contact.html">联系我</a></li>
+                                <li class="active"><a href="/">首页</a></li>
+                                <li><a href="/nav/time">点滴</a></li>
+                                <li><a href="javascript:void(0);">记录</a></li>
+                                <li><a href="javascript:void(0);">简历</a></li>
+                                <li><a href="javascript:void(0);">联系我</a></li>
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </nav>
@@ -107,7 +103,7 @@
                     <div class="col-sm-12">
                         <div class="title-box">
                             <h2 class="title">生活嘛 <span>需要点滴色彩</span></h2>
-                            <a href="time.html" class="btn btn-default btn-robot">查看更多</a>
+                            <a href="/nav/time" class="btn btn-default btn-robot">查看更多</a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +112,7 @@
                 	<div id="main" role="main" page="index">
 	                    <ul id="tiles" class="tiles-wrap animated">
 				        <!-- These are our grid blocks -->
-					        <li onClick="location.href='single-page.html';">
+					        <!-- <li onClick="location.href='single-page.html';">
 					        	<img src="styles/images/pics/img1.jpg" width="200" height="200">
 					        	<div class="post-info">
 					        		<div class="post-basic-info">
@@ -191,7 +187,7 @@
 					        			<div class="clear"> </div>
 					        		</div>
 					        	</div>
-					        </li>
+					        </li> -->
 				        </ul>
                     
                     </div>
